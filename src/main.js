@@ -5,6 +5,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // ⚠️ Substitua pelo número real do WhatsApp da loja (formato DDI+DDD+número, só dígitos).
 export const WHATSAPP_NUMERO = '5511999999999';
 
+// ---------- Tela de carregamento (evita o "susto" do leão surgindo de repente) ----------
+window.addEventListener('load', () => {
+  const loader = document.getElementById('page-loader');
+  if (!loader) return;
+  setTimeout(() => {
+    loader.classList.add('loader-oculto');
+    setTimeout(() => loader.remove(), 500);
+  }, 350);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   // Ano automático no rodapé
   document.querySelectorAll('[data-ano-atual]').forEach((el) => {
