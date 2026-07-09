@@ -15,7 +15,7 @@ export const FRETE_POR_ZONA = {
   'Grande SP': 25,
 };
 
-// ⚠️ Valor mínimo de pratos (sem contar o frete) para o frete sair grátis.
+// ⚠️ Valor mínimo em pratos (sem contar o frete) para o frete sair grátis.
 export const FRETE_GRATIS_ACIMA_DE = 150;
 
 // Tamanhos do montador de marmita: pesos por categoria (g) e preço de venda.
@@ -28,6 +28,45 @@ export const TAMANHOS_MARMITA = {
 
 const FEIJOES = ['Feijão carioca', 'Feijão preto'];
 
+const formatarMoeda = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+// ---------- Carrinho (persistido no navegador via localStorage) ----------
+const CARRINHO_STORAGE_KEY = 'yeshua_carrinho';
+
+function obterCarrinho() {
+  try {
+    const dados = JSON.parse(localStorage.getItem(CARRINHO_STORAGE_KEY));
+    return Array.isArray(dados) ? dados : [];
+  } catch {
+    return [];
+  }
+}
+
+function salvarCarrinho(itens) {
+  localStorage.setItem(CARRINHO_STORAGE_KEY, JSON.stringify(itens));
+  atualizarBadgeCarrinho();
+}
+
+function adicionarAoCarrinho({ tamanho, descricao, preco }) {
+  const itens = obterCarrinho();
+  const chave = `${tamanho}|${descricao}`;
+  const existente = itens.find((item) => item.chave === chave);
+  if (existente) {
+    existente.quantidade += 1;
+  } else {
+    itens.push({ chave, tamanho, descricao, preco, quantidade: 1 });
+  }
+  salvarCarrinho(itens);
+}
+
+function atualizarBadgeCarrinho() {
+  document.querySelectorAll('#carrinho-contador').forEach((badge) => {
+    const total = obterCarrinho().reduce((soma, item) => soma + item.quantidade, 0);
+    badge.textContent = total;
+    badge.style.display = total > 0 ? 'inline-block' : 'none';
+  });
+}
+
 // ---------- Tela de carregamento (evita o "susto" do leão surgindo de repente) ----------
 window.addEventListener('load', () => {
   const loader = document.getElementById('page-loader');
@@ -39,6 +78,8 @@ window.addEventListener('load', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  atualizarBadgeCarrinho();
+
   // Ano automático no rodapé
   document.querySelectorAll('[data-ano-atual]').forEach((el) => {
     el.textContent = new Date().getFullYear();
@@ -73,8 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const blocoMolho = document.getElementById('blocoMolho');
     const blocoFeijaoComplemento = document.getElementById('blocoFeijaoComplemento');
     const btnFinalizar = document.getElementById('btnFinalizarMontagem');
-
-    const formatarMoedaMontador = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+    const detalheTamanhoEl = document.getElementById('detalheTamanhoSelecionado');
+    const alertaCarrinho = document.getElementById('alerta-carrinho');
 
     // Regra especial do feijão: 70% do peso de carboidrato vira feijão automaticamente,
     // e o restante precisa ser completado com outro carboidrato (regra da especificação, escalada por tamanho).
@@ -95,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = TAMANHOS_MARMITA[selecao.tamanho];
         pesoProteinaEl.textContent = `· ${t.proteina}g`;
         pesoLegumeEl.textContent = `· ${t.legume}g`;
+        detalheTamanhoEl.textContent = `Tamanho ${selecao.tamanho}: proteína ${t.proteina}g · carboidrato ${t.carboidrato}g · legumes ${t.legume}g`;
         if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
           const { feijao, complemento } = pesosFeijao(selecao.tamanho);
           pesoCarboidratoEl.textContent = `· ${feijao}g + ${complemento}g`;
@@ -106,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pesoProteinaEl.textContent = '';
         pesoCarboidratoEl.textContent = '';
         pesoLegumeEl.textContent = '';
+        detalheTamanhoEl.textContent = '';
       }
 
       blocoMolho.classList.toggle('d-none', selecao.carboidrato !== 'Macarrão');
@@ -128,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resumoLegumeTxt').textContent = selecao.legume || '—';
 
       const preco = selecao.tamanho ? TAMANHOS_MARMITA[selecao.tamanho].preco : 0;
-      document.getElementById('resumoPrecoTxt').textContent = formatarMoedaMontador(preco);
+      document.getElementById('resumoPrecoTxt').textContent = formatarMoeda(preco);
 
       const carboidratoCompleto = selecao.carboidrato
         && (selecao.carboidrato !== 'Macarrão' || selecao.molho)
@@ -137,11 +180,23 @@ document.addEventListener('DOMContentLoaded', () => {
       btnFinalizar.disabled = !(selecao.tamanho && selecao.proteina && carboidratoCompleto && selecao.legume);
     };
 
-    document.querySelectorAll('[data-tamanho-marmita]').forEach((card) => {
-      card.addEventListener('click', () => {
+    const limparSelecao = () => {
+      selecao.tamanho = null;
+      selecao.proteina = null;
+      selecao.carboidrato = null;
+      selecao.molho = null;
+      selecao.complementoCarboidrato = null;
+      selecao.legume = null;
+      document.querySelectorAll('[data-tamanho-marmita]').forEach((c) => c.classList.remove('active'));
+      ['proteina', 'carboidrato', 'molho', 'complementoCarboidrato', 'legume'].forEach((g) => selecionarChip(g, null));
+      atualizarMontador();
+    };
+
+    document.querySelectorAll('[data-tamanho-marmita]').forEach((chip) => {
+      chip.addEventListener('click', () => {
         document.querySelectorAll('[data-tamanho-marmita]').forEach((c) => c.classList.remove('active'));
-        card.classList.add('active');
-        selecao.tamanho = card.dataset.tamanhoMarmita;
+        chip.classList.add('active');
+        selecao.tamanho = chip.dataset.tamanhoMarmita;
         atualizarMontador();
       });
     });
@@ -174,41 +229,108 @@ document.addEventListener('DOMContentLoaded', () => {
         carboidratoDescricao = `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`;
       }
 
-      const nomePrato = `Marmita ${tamanho} — ${selecao.proteina}, ${carboidratoDescricao}, ${selecao.legume}`;
+      const descricao = `${selecao.proteina}, ${carboidratoDescricao}, ${selecao.legume}`;
       const preco = TAMANHOS_MARMITA[tamanho].preco;
 
-      const params = new URLSearchParams({
-        prato: nomePrato,
-        tamanho,
-        preco: preco.toFixed(2),
-      });
-      window.location.href = `checkout.html?${params.toString()}`;
+      adicionarAoCarrinho({ tamanho, descricao, preco });
+      limparSelecao();
+
+      alertaCarrinho.classList.remove('d-none');
+      alertaCarrinho.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     atualizarMontador();
   }
 
-  // ---------- Checkout: resumo do pedido, quantidade e finalização ----------
+  // ---------- Carrinho: listar, ajustar quantidade e remover itens ----------
+  const carrinhoListaEl = document.getElementById('carrinho-lista');
+  if (carrinhoListaEl) {
+    const carrinhoVazioEl = document.getElementById('carrinho-vazio');
+    const carrinhoResumoEl = document.getElementById('carrinho-resumo');
+    const carrinhoSubtotalEl = document.getElementById('carrinho-subtotal');
+    const carrinhoAdicionarOutraEl = document.getElementById('carrinho-adicionar-outra');
+
+    const renderizarCarrinho = () => {
+      const itens = obterCarrinho();
+
+      if (itens.length === 0) {
+        carrinhoListaEl.innerHTML = '';
+        carrinhoVazioEl.classList.remove('d-none');
+        carrinhoResumoEl.classList.add('d-none');
+        carrinhoAdicionarOutraEl.classList.add('d-none');
+        return;
+      }
+
+      carrinhoVazioEl.classList.add('d-none');
+      carrinhoResumoEl.classList.remove('d-none');
+      carrinhoAdicionarOutraEl.classList.remove('d-none');
+
+      carrinhoListaEl.innerHTML = itens.map((item, indice) => `
+        <div class="card-yeshua p-4 mb-3 d-flex flex-row justify-content-between align-items-start gap-3 flex-wrap">
+          <div>
+            <span class="badge badge-categoria rounded-pill mb-2">Marmita ${item.tamanho}</span>
+            <p class="fw-semibold mb-1">${item.descricao}</p>
+            <p class="small text-dourado-claro mb-0">${formatarMoeda(item.preco)} cada</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-dourado btn-sm" data-carrinho-menos="${indice}" aria-label="Diminuir quantidade">−</button>
+            <span class="fonte-titulo" style="min-width: 1.5rem; text-align: center;">${item.quantidade}</span>
+            <button type="button" class="btn btn-outline-dourado btn-sm" data-carrinho-mais="${indice}" aria-label="Aumentar quantidade">+</button>
+            <span class="fonte-titulo text-dourado ms-2" style="min-width: 5rem; text-align: right;">${formatarMoeda(item.preco * item.quantidade)}</span>
+            <button type="button" class="btn btn-terracota btn-sm" data-carrinho-remover="${indice}" aria-label="Remover item">🗑</button>
+          </div>
+        </div>
+      `).join('');
+
+      const subtotal = itens.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
+      carrinhoSubtotalEl.textContent = formatarMoeda(subtotal);
+
+      carrinhoListaEl.querySelectorAll('[data-carrinho-mais]').forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const atuais = obterCarrinho();
+          atuais[Number(botao.dataset.carrinhoMais)].quantidade += 1;
+          salvarCarrinho(atuais);
+          renderizarCarrinho();
+        });
+      });
+      carrinhoListaEl.querySelectorAll('[data-carrinho-menos]').forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const atuais = obterCarrinho();
+          const indice = Number(botao.dataset.carrinhoMenos);
+          if (atuais[indice].quantidade > 1) {
+            atuais[indice].quantidade -= 1;
+          } else {
+            atuais.splice(indice, 1);
+          }
+          salvarCarrinho(atuais);
+          renderizarCarrinho();
+        });
+      });
+      carrinhoListaEl.querySelectorAll('[data-carrinho-remover]').forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const atuais = obterCarrinho();
+          atuais.splice(Number(botao.dataset.carrinhoRemover), 1);
+          salvarCarrinho(atuais);
+          renderizarCarrinho();
+        });
+      });
+    };
+
+    renderizarCarrinho();
+  }
+
+  // ---------- Checkout: resumo do carrinho, frete e finalização ----------
   const checkoutConteudo = document.getElementById('checkout-conteudo');
   if (checkoutConteudo) {
-    const parametros = new URLSearchParams(window.location.search);
-    const prato = parametros.get('prato');
-    const tamanho = parametros.get('tamanho');
-    const precoUnitario = parseFloat(parametros.get('preco'));
+    const itensCarrinho = obterCarrinho();
 
-    if (!prato || !tamanho || Number.isNaN(precoUnitario)) {
+    if (itensCarrinho.length === 0) {
       checkoutConteudo.classList.add('d-none');
       document.getElementById('checkout-vazio').classList.remove('d-none');
     } else {
-      const formatarMoeda = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
-
-      document.getElementById('resumo-prato').textContent = prato;
-      document.getElementById('resumo-tamanho').textContent = tamanho;
-      document.getElementById('resumo-preco-unit').textContent = formatarMoeda(precoUnitario);
       document.getElementById('frete-gratis-valor').textContent = formatarMoeda(FRETE_GRATIS_ACIMA_DE);
 
-      let quantidade = 1;
-      const quantidadeEl = document.getElementById('resumo-quantidade');
+      const itensListaEl = document.getElementById('checkout-itens-lista');
       const subtotalEl = document.getElementById('resumo-subtotal');
       const freteEl = document.getElementById('resumo-frete');
       const freteZonaEl = document.getElementById('resumo-frete-zona');
@@ -222,12 +344,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return FRETE_POR_ZONA[zona];
       };
 
+      const subtotalCarrinho = () => itensCarrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
+
+      const renderizarItens = () => {
+        itensListaEl.innerHTML = itensCarrinho.map((item) => `
+          <div class="d-flex justify-content-between align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(201,162,39,0.15);">
+            <div style="max-width: 70%;">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge badge-categoria rounded-pill">${item.tamanho}</span>
+                <span class="fw-semibold">Marmita ${item.tamanho}</span>
+              </div>
+              <p class="small mb-0" style="color: rgba(244,236,221,0.65);">${item.descricao}</p>
+              <p class="small mb-0 text-dourado-claro">${item.quantidade} × ${formatarMoeda(item.preco)}</p>
+            </div>
+            <span class="text-dourado-claro fw-semibold">${formatarMoeda(item.preco * item.quantidade)}</span>
+          </div>
+        `).join('');
+      };
+
       const atualizarResumo = () => {
-        const subtotal = precoUnitario * quantidade;
+        const subtotal = subtotalCarrinho();
         const zona = zonaSelect.value;
         const frete = calcularFrete(subtotal, zona);
 
-        quantidadeEl.textContent = quantidade;
         subtotalEl.textContent = formatarMoeda(subtotal);
         freteZonaEl.textContent = zona ? ` (${zona})` : '';
         freteGratisAvisoEl.classList.toggle('d-none', subtotal < FRETE_GRATIS_ACIMA_DE);
@@ -243,18 +382,9 @@ document.addEventListener('DOMContentLoaded', () => {
           totalEl.textContent = formatarMoeda(subtotal + frete);
         }
       };
-      atualizarResumo();
 
-      document.getElementById('qtd-menos').addEventListener('click', () => {
-        if (quantidade > 1) {
-          quantidade -= 1;
-          atualizarResumo();
-        }
-      });
-      document.getElementById('qtd-mais').addEventListener('click', () => {
-        quantidade += 1;
-        atualizarResumo();
-      });
+      renderizarItens();
+      atualizarResumo();
       zonaSelect.addEventListener('change', atualizarResumo);
 
       const formCheckout = document.getElementById('form-checkout');
@@ -266,16 +396,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const dados = new FormData(formCheckout);
-        const subtotal = precoUnitario * quantidade;
+        const subtotal = subtotalCarrinho();
         const zona = dados.get('zona');
         const frete = calcularFrete(subtotal, zona) ?? 0;
         const total = subtotal + frete;
 
+        const linhasItens = itensCarrinho.map(
+          (item) => `${item.quantidade}x Marmita ${item.tamanho} (${item.descricao}) — ${formatarMoeda(item.preco * item.quantidade)}`
+        );
+
         const mensagem = [
           '*Novo pedido — Yeshua Marmitas Fit*',
-          `Prato: ${prato}`,
-          `Tamanho: ${tamanho}`,
-          `Quantidade: ${quantidade}`,
+          ...linhasItens,
+          '',
           `Subtotal: ${formatarMoeda(subtotal)}`,
           `Frete (${zona}): ${frete === 0 ? 'Grátis' : formatarMoeda(frete)}`,
           `*Total: ${formatarMoeda(total)}*`,
@@ -293,17 +426,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
         window.open(url, '_blank', 'noopener');
 
+        salvarCarrinho([]);
+
         const alerta = document.getElementById('alerta-checkout');
         alerta.classList.remove('d-none');
         alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         formCheckout.reset();
         formCheckout.classList.remove('was-validated');
-        atualizarResumo();
       });
     }
   }
 
-  // ---------- Formulário: Encomenda personalizada -> WhatsApp ----------
+  // ---------- Formulário: Pedido personalizado (fora do cardápio fixo) -> WhatsApp ----------
   const formPersonalizar = document.getElementById('form-personalizar');
   if (formPersonalizar) {
     formPersonalizar.addEventListener('submit', (e) => {
@@ -325,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const observacoes = dados.get('observacoes') || '—';
 
       const mensagem = [
-        '*Nova encomenda personalizada — Yeshua Marmitas Fit*',
+        '*Novo pedido personalizado (fora do cardápio) — Yeshua Marmitas Fit*',
         `Nome: ${nome}`,
         `Telefone: ${telefone}`,
         `Bairro/Região (SP): ${bairro}`,

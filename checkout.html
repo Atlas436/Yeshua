@@ -46,6 +46,12 @@
           <li class="nav-item"><a class="nav-link" href="cardapio.html">Cardápio</a></li>
           <li class="nav-item"><a class="nav-link" href="personalizar.html">Personalizar</a></li>
           <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="carrinho.html" aria-label="Carrinho de compras">
+              🛒 Carrinho
+              <span id="carrinho-contador" class="badge rounded-pill bg-terracota position-absolute" style="display:none; font-size:0.6rem; top:-2px; right:-14px;">0</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -81,20 +87,12 @@
         <!-- Resumo do pedido -->
         <div class="col-lg-5">
           <div class="card-yeshua p-4 p-md-5">
-            <h5 class="fonte-titulo mb-4">Resumo do pedido</h5>
-
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <span id="resumo-prato" class="fw-semibold" style="max-width: 70%;">—</span>
-              <span class="badge badge-categoria rounded-pill" id="resumo-tamanho">—</span>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="fonte-titulo mb-0">Resumo do pedido</h5>
+              <a href="carrinho.html" class="small">Editar carrinho</a>
             </div>
-            <p class="small mb-4" style="color: rgba(244,236,221,0.6);">Preço unitário: <span id="resumo-preco-unit" class="text-dourado-claro">R$ 0,00</span></p>
 
-            <label class="form-label d-block">Quantidade</label>
-            <div class="d-flex align-items-center gap-3 mb-4">
-              <button type="button" id="qtd-menos" class="btn btn-outline-dourado" aria-label="Diminuir quantidade">−</button>
-              <span id="resumo-quantidade" class="fonte-titulo fs-4" style="min-width: 2.5rem; text-align: center;">1</span>
-              <button type="button" id="qtd-mais" class="btn btn-outline-dourado" aria-label="Aumentar quantidade">+</button>
-            </div>
+            <div id="checkout-itens-lista"></div>
 
             <hr style="border-color: rgba(201,162,39,0.2);" />
             <div class="d-flex justify-content-between align-items-center mb-2">

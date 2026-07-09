@@ -46,6 +46,12 @@
           <li class="nav-item"><a class="nav-link" href="cardapio.html">Cardápio</a></li>
           <li class="nav-item"><a class="nav-link" href="personalizar.html">Personalizar</a></li>
           <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="carrinho.html" aria-label="Carrinho de compras">
+              🛒 Carrinho
+              <span id="carrinho-contador" class="badge rounded-pill bg-terracota position-absolute" style="display:none; font-size:0.6rem; top:-2px; right:-14px;">0</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -70,32 +76,12 @@
         <h2 class="fonte-titulo">Escolha o <span class="text-dourado">tamanho</span></h2>
         <div class="divisor-dourado"></div>
       </div>
-      <div class="row g-4 justify-content-center" id="grupoTamanho">
-        <div class="col-6 col-md-4 col-lg-3">
-          <button type="button" class="tamanho-card" data-tamanho-marmita="P">
-            <span class="tamanho-card-letra">P</span>
-            <span class="tamanho-card-peso">320g</span>
-            <span class="tamanho-card-detalhe">Proteína 150g · Carboidrato 100g · Legumes 70g</span>
-            <span class="tamanho-card-preco">R$ 14,00</span>
-          </button>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <button type="button" class="tamanho-card" data-tamanho-marmita="M">
-            <span class="tamanho-card-letra">M</span>
-            <span class="tamanho-card-peso">450g</span>
-            <span class="tamanho-card-detalhe">Proteína 200g · Carboidrato 150g · Legumes 100g</span>
-            <span class="tamanho-card-preco">R$ 19,00</span>
-          </button>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <button type="button" class="tamanho-card" data-tamanho-marmita="G">
-            <span class="tamanho-card-letra">G</span>
-            <span class="tamanho-card-peso">600g</span>
-            <span class="tamanho-card-detalhe">Proteína 250g · Carboidrato 200g · Legumes 150g</span>
-            <span class="tamanho-card-preco">R$ 25,00</span>
-          </button>
-        </div>
+      <div class="d-flex flex-wrap justify-content-center gap-2" id="grupoTamanho">
+        <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="P">P · 320g · R$ 14,00</button>
+        <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="M">M · 450g · R$ 19,00</button>
+        <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="G">G · 600g · R$ 25,00</button>
       </div>
+      <p class="text-center small mt-3 mb-0" id="detalheTamanhoSelecionado" style="color: rgba(244,236,221,0.6); min-height: 1.2em;"></p>
     </div>
   </section>
 
@@ -122,6 +108,9 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frango assado">Frango assado</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Bife (iscas/tiras)">Bife (iscas/tiras)</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Ovo">Ovo</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Peixe (filé)">Peixe (filé)</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frango desfiado">Frango desfiado</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Almôndegas">Almôndegas</button>
             </div>
           </div>
 
@@ -182,6 +171,10 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Berinjela">Berinjela</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Quiabo">Quiabo</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Vagem">Vagem</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Couve-flor">Couve-flor</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Espinafre">Espinafre</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Repolho">Repolho</button>
             </div>
           </div>
 
@@ -191,6 +184,11 @@
         <div class="col-lg-4">
           <div class="card-yeshua p-4 p-md-5 sticky-top" style="top: 6rem;">
             <h5 class="fonte-titulo mb-4">Sua marmita</h5>
+
+            <div id="alerta-carrinho" class="alert d-none small" style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.4); color: #d7fbe6;" role="alert">
+              Marmita adicionada ao carrinho! Monte outra ou <a href="carrinho.html" class="text-dourado-claro">veja o carrinho</a>.
+            </div>
+
             <ul class="list-unstyled small mb-4" style="color: rgba(244,236,221,0.85);">
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Tamanho</span><strong id="resumoTamanhoTxt" class="text-end">—</strong></li>
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Proteína</span><strong id="resumoProteinaTxt" class="text-end">—</strong></li>
@@ -202,7 +200,7 @@
               <span class="fonte-titulo">Total</span>
               <span class="fonte-titulo fs-3 text-dourado" id="resumoPrecoTxt">R$ 0,00</span>
             </div>
-            <button type="button" class="btn btn-dourado w-100" id="btnFinalizarMontagem" disabled>Finalizar pedido</button>
+            <button type="button" class="btn btn-dourado w-100" id="btnFinalizarMontagem" disabled>🛒 Adicionar ao carrinho</button>
             <p class="small mt-3 mb-0 text-center" style="color: rgba(244,236,221,0.5);">Escolha o tamanho e todos os ingredientes para continuar.</p>
           </div>
         </div>
