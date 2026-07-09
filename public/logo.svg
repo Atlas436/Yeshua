@@ -1,62 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="yeshuaLogoTitle">
-  <title id="yeshuaLogoTitle">Yeshua Marmitas Fit — leão preto e dourado</title>
+  <title id="yeshuaLogoTitle">Yeshua Marmitas Fit — leão dourado, traço minimalista</title>
 
-  <!-- Juba (mane), em tufos arredondados -->
-  <g stroke="#0D0D0D" stroke-width="0.5">
-    <circle cx="100.0" cy="30.0" r="22" fill="#C9A227"/>
-    <circle cx="128.6" cy="36.5" r="17" fill="#E9CE7A"/>
-    <circle cx="151.6" cy="54.8" r="24" fill="#C9A227"/>
-    <circle cx="164.3" cy="81.3" r="16" fill="#E9CE7A"/>
-    <circle cx="164.3" cy="110.7" r="23" fill="#C9A227"/>
-    <circle cx="151.6" cy="137.2" r="17" fill="#E9CE7A"/>
-    <circle cx="128.6" cy="155.5" r="25" fill="#C9A227"/>
-    <circle cx="100.0" cy="162.0" r="17" fill="#E9CE7A"/>
-    <circle cx="71.4" cy="155.5" r="23" fill="#C9A227"/>
-    <circle cx="48.4" cy="137.2" r="16" fill="#E9CE7A"/>
-    <circle cx="35.7" cy="110.7" r="24" fill="#C9A227"/>
-    <circle cx="35.7" cy="81.3" r="17" fill="#E9CE7A"/>
-    <circle cx="48.4" cy="54.8" r="22" fill="#C9A227"/>
-    <circle cx="71.4" cy="36.5" r="17" fill="#E9CE7A"/>
+  <!-- Fundo -->
+  <circle cx="100" cy="98" r="99" fill="#0D0D0D"/>
+
+  <!-- Juba em folhas (ingredientes frescos), traço contínuo dourado -->
+  <g fill="none" stroke="#C9A227" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M100.0,48.0 Q91.0,22.6 100.0,4.0 Q109.0,22.6 100.0,48.0 Z"/>
+    <path d="M120.8,52.8 Q122.1,30.6 135.6,22.1 Q137.3,37.9 120.8,52.8 Z"/>
+    <path d="M137.5,66.1 Q151.8,43.2 171.9,38.6 Q163.0,57.3 137.5,66.1 Z"/>
+    <path d="M146.8,85.3 Q164.9,72.6 179.9,77.8 Q168.6,89.0 146.8,85.3 Z"/>
+    <path d="M146.8,106.7 Q173.6,103.6 189.7,116.5 Q169.6,121.1 146.8,106.7 Z"/>
+    <path d="M53.2,106.7 Q30.4,121.1 10.3,116.5 Q26.4,103.6 53.2,106.7 Z"/>
+    <path d="M53.2,85.3 Q31.4,89.0 20.1,77.8 Q35.1,72.6 53.2,85.3 Z"/>
+    <path d="M62.5,66.1 Q37.0,57.3 28.1,38.6 Q48.2,43.2 62.5,66.1 Z"/>
+    <path d="M79.2,52.8 Q62.7,37.9 64.4,22.1 Q77.9,30.6 79.2,52.8 Z"/>
   </g>
 
-  <!-- Anel dourado -->
-  <circle cx="100" cy="96" r="52" fill="none" stroke="#8A6A16" stroke-width="1.5"/>
+  <!-- Garfo e colher integrados à base da juba -->
+  <g fill="none" stroke="#C9A227" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(122.5,140.4) rotate(-28)">
+      <path d="M0,0 L0,18"/>
+      <path d="M-8,18 L8,18"/>
+      <path d="M-8,18 L-8,32"/>
+      <path d="M0,18 L0,32"/>
+      <path d="M8,18 L8,32"/>
+    </g>
+    <g transform="translate(77.5,140.4) rotate(28)">
+      <path d="M0,0 L0,18"/>
+      <ellipse cx="0" cy="30" rx="8.5" ry="11.5"/>
+    </g>
+  </g>
 
-  <!-- Orelhas (atrás da cabeça, arredondadas) -->
-  <circle cx="66" cy="58" r="13" fill="#0D0D0D"/>
-  <circle cx="67" cy="59" r="6.5" fill="#C9A227"/>
-  <circle cx="134" cy="58" r="13" fill="#0D0D0D"/>
-  <circle cx="133" cy="59" r="6.5" fill="#C9A227"/>
+  <!-- Orelhas em formato de folha -->
+  <g fill="none" stroke="#C9A227" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M66,60 Q56,40 66,28 Q78,42 74,60 Z"/>
+    <path d="M134,60 Q144,40 134,28 Q122,42 126,60 Z"/>
+  </g>
 
   <!-- Cabeça -->
-  <circle cx="100" cy="96" r="50" fill="#0D0D0D"/>
+  <circle cx="100" cy="98" r="46" fill="none" stroke="#C9A227" stroke-width="2.6"/>
 
-  <!-- Focinho (patch mais claro e suave) -->
-  <path d="M72,96 Q70,120 100,138 Q130,120 128,96 Q115,106 100,106 Q85,106 72,96 Z" fill="#C9752B"/>
+  <!-- Sobrancelhas serenas -->
+  <path d="M71,85 Q82,78 92,84" fill="none" stroke="#C9A227" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M129,85 Q118,78 108,84" fill="none" stroke="#C9A227" stroke-width="2.6" stroke-linecap="round"/>
 
-  <!-- Olhos grandes e amistosos -->
-  <ellipse cx="79" cy="90" rx="10" ry="8.5" fill="#F1DA92"/>
-  <ellipse cx="121" cy="90" rx="10" ry="8.5" fill="#F1DA92"/>
-  <circle cx="81" cy="91" r="4.2" fill="#0D0D0D"/>
-  <circle cx="119" cy="91" r="4.2" fill="#0D0D0D"/>
-  <circle cx="82.5" cy="89" r="1.3" fill="#FFFDF6"/>
-  <circle cx="117.5" cy="89" r="1.3" fill="#FFFDF6"/>
+  <!-- Olhos calmos -->
+  <path d="M74,95 Q82,89 91,95 Q82,100 74,95 Z" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M126,95 Q118,89 109,95 Q118,100 126,95 Z" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="82.5" cy="95" r="2.6" fill="#C9A227"/>
+  <circle cx="117.5" cy="95" r="2.6" fill="#C9A227"/>
 
-  <!-- Sobrancelhas suaves -->
-  <path d="M70,79 Q79,74 88,79" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M130,79 Q121,74 112,79" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
-
-  <!-- Nariz e boca (sorriso tranquilo) -->
-  <path d="M100,106 L108,114 Q100,120 92,114 Z" fill="#0D0D0D"/>
-  <path d="M100,120 L100,124" stroke="#0D0D0D" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M100,124 Q92,130 84,127" fill="none" stroke="#0D0D0D" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M100,124 Q108,130 116,127" fill="none" stroke="#0D0D0D" stroke-width="1.6" stroke-linecap="round"/>
-
-  <!-- Bigodes discretos -->
-  <g stroke="#E9CE7A" stroke-width="1" stroke-linecap="round" opacity="0.8">
-    <path d="M86,113 L68,110"/>
-    <path d="M86,118 L68,120"/>
-    <path d="M114,113 L132,110"/>
-    <path d="M114,118 L132,120"/>
-  </g>
+  <!-- Focinho minimalista -->
+  <path d="M100,105 L107,112 L100,118 L93,112 Z" fill="none" stroke="#C9A227" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M100,118 L100,123" stroke="#C9A227" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M100,123 Q91,130 82,125" fill="none" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M100,123 Q109,130 118,125" fill="none" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
 </svg>
