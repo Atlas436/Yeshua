@@ -18,6 +18,16 @@ export const FRETE_POR_ZONA = {
 // ⚠️ Valor mínimo de pratos (sem contar o frete) para o frete sair grátis.
 export const FRETE_GRATIS_ACIMA_DE = 150;
 
+// Tamanhos do montador de marmita: pesos por categoria (g) e preço de venda.
+// Preço = custo_total / (1 - margem_lucro); ver especificação técnica do cardápio.
+export const TAMANHOS_MARMITA = {
+  P: { pesoTotal: 320, proteina: 150, carboidrato: 100, legume: 70, preco: 14.0 },
+  M: { pesoTotal: 450, proteina: 200, carboidrato: 150, legume: 100, preco: 19.0 },
+  G: { pesoTotal: 600, proteina: 250, carboidrato: 200, legume: 150, preco: 25.0 },
+};
+
+const FEIJOES = ['Feijão carioca', 'Feijão preto'];
+
 // ---------- Tela de carregamento (evita o "susto" do leão surgindo de repente) ----------
 window.addEventListener('load', () => {
   const loader = document.getElementById('page-loader');
@@ -44,49 +54,128 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---------- Cardápio: filtro por categoria ----------
-  const filtros = document.querySelectorAll('[data-filtro-categoria]');
-  const pratos = document.querySelectorAll('[data-categoria]');
-  if (filtros.length && pratos.length) {
-    filtros.forEach((botao) => {
-      botao.addEventListener('click', () => {
-        filtros.forEach((b) => b.classList.remove('active'));
-        botao.classList.add('active');
-        const categoria = botao.dataset.filtroCategoria;
-        pratos.forEach((prato) => {
-          const mostrar = categoria === 'todos' || prato.dataset.categoria === categoria;
-          prato.closest('.prato-wrapper').classList.toggle('d-none', !mostrar);
+  // ---------- Cardápio: montador de marmita (tamanho + ingredientes) ----------
+  const grupoTamanho = document.getElementById('grupoTamanho');
+  if (grupoTamanho) {
+    const selecao = {
+      tamanho: null,
+      proteina: null,
+      carboidrato: null,
+      molho: null,
+      complementoCarboidrato: null,
+      legume: null,
+    };
+
+    const pesoProteinaEl = document.getElementById('pesoProteina');
+    const pesoCarboidratoEl = document.getElementById('pesoCarboidrato');
+    const pesoLegumeEl = document.getElementById('pesoLegume');
+    const pesoComplementoFeijaoEl = document.getElementById('pesoComplementoFeijao');
+    const blocoMolho = document.getElementById('blocoMolho');
+    const blocoFeijaoComplemento = document.getElementById('blocoFeijaoComplemento');
+    const btnFinalizar = document.getElementById('btnFinalizarMontagem');
+
+    const formatarMoedaMontador = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+    // Regra especial do feijão: 70% do peso de carboidrato vira feijão automaticamente,
+    // e o restante precisa ser completado com outro carboidrato (regra da especificação, escalada por tamanho).
+    const pesosFeijao = (tamanho) => {
+      const totalCarb = TAMANHOS_MARMITA[tamanho].carboidrato;
+      const feijao = Math.round(totalCarb * 0.7);
+      return { feijao, complemento: totalCarb - feijao };
+    };
+
+    const selecionarChip = (grupo, valor) => {
+      document.querySelectorAll(`[data-grupo-ingrediente="${grupo}"] .chip-ingrediente`).forEach((chip) => {
+        chip.classList.toggle('active', chip.dataset.valor === valor);
+      });
+    };
+
+    const atualizarMontador = () => {
+      if (selecao.tamanho) {
+        const t = TAMANHOS_MARMITA[selecao.tamanho];
+        pesoProteinaEl.textContent = `· ${t.proteina}g`;
+        pesoLegumeEl.textContent = `· ${t.legume}g`;
+        if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
+          const { feijao, complemento } = pesosFeijao(selecao.tamanho);
+          pesoCarboidratoEl.textContent = `· ${feijao}g + ${complemento}g`;
+          pesoComplementoFeijaoEl.textContent = `${complemento}g`;
+        } else {
+          pesoCarboidratoEl.textContent = `· ${t.carboidrato}g`;
+        }
+      } else {
+        pesoProteinaEl.textContent = '';
+        pesoCarboidratoEl.textContent = '';
+        pesoLegumeEl.textContent = '';
+      }
+
+      blocoMolho.classList.toggle('d-none', selecao.carboidrato !== 'Macarrão');
+      blocoFeijaoComplemento.classList.toggle('d-none', !(selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)));
+
+      document.getElementById('resumoTamanhoTxt').textContent = selecao.tamanho || '—';
+      document.getElementById('resumoProteinaTxt').textContent = selecao.proteina || '—';
+
+      let carboidratoTxt = '—';
+      if (selecao.carboidrato === 'Macarrão') {
+        carboidratoTxt = selecao.molho ? `Macarrão (molho ${selecao.molho})` : 'Macarrão (escolha o molho)';
+      } else if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
+        carboidratoTxt = selecao.complementoCarboidrato
+          ? `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`
+          : `${selecao.carboidrato} (complete a porção)`;
+      } else if (selecao.carboidrato) {
+        carboidratoTxt = selecao.carboidrato;
+      }
+      document.getElementById('resumoCarboidratoTxt').textContent = carboidratoTxt;
+      document.getElementById('resumoLegumeTxt').textContent = selecao.legume || '—';
+
+      const preco = selecao.tamanho ? TAMANHOS_MARMITA[selecao.tamanho].preco : 0;
+      document.getElementById('resumoPrecoTxt').textContent = formatarMoedaMontador(preco);
+
+      const carboidratoCompleto = selecao.carboidrato
+        && (selecao.carboidrato !== 'Macarrão' || selecao.molho)
+        && (!FEIJOES.includes(selecao.carboidrato) || selecao.complementoCarboidrato);
+
+      btnFinalizar.disabled = !(selecao.tamanho && selecao.proteina && carboidratoCompleto && selecao.legume);
+    };
+
+    document.querySelectorAll('[data-tamanho-marmita]').forEach((card) => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('[data-tamanho-marmita]').forEach((c) => c.classList.remove('active'));
+        card.classList.add('active');
+        selecao.tamanho = card.dataset.tamanhoMarmita;
+        atualizarMontador();
+      });
+    });
+
+    ['proteina', 'carboidrato', 'molho', 'complementoCarboidrato', 'legume'].forEach((grupo) => {
+      document.querySelectorAll(`[data-grupo-ingrediente="${grupo}"] .chip-ingrediente`).forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const valor = chip.dataset.valor;
+          if (grupo === 'carboidrato' && selecao.carboidrato !== valor) {
+            selecao.molho = null;
+            selecao.complementoCarboidrato = null;
+            selecionarChip('molho', null);
+            selecionarChip('complementoCarboidrato', null);
+          }
+          selecao[grupo] = valor;
+          selecionarChip(grupo, valor);
+          atualizarMontador();
         });
       });
     });
-  }
 
-  // ---------- Cardápio: preço muda conforme tamanho escolhido ----------
-  document.querySelectorAll('[data-precos]').forEach((card) => {
-    const precos = JSON.parse(card.dataset.precos);
-    const precoEl = card.querySelector('[data-preco-exibido]');
-    const botoesTamanho = card.querySelectorAll('[data-tamanho]');
-    botoesTamanho.forEach((botao) => {
-      botao.addEventListener('click', () => {
-        botoesTamanho.forEach((b) => b.classList.remove('active'));
-        botao.classList.add('active');
-        const tamanho = botao.dataset.tamanho;
-        if (precoEl && precos[tamanho]) {
-          precoEl.textContent = `R$ ${precos[tamanho].toFixed(2).replace('.', ',')}`;
-        }
-      });
-    });
-  });
+    btnFinalizar.addEventListener('click', () => {
+      if (btnFinalizar.disabled) return;
+      const tamanho = selecao.tamanho;
 
-  // ---------- Cardápio: botão "Comprar" leva para o checkout do prato ----------
-  document.querySelectorAll('[data-comprar]').forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const card = botao.closest('[data-precos]');
-      const precos = JSON.parse(card.dataset.precos);
-      const botaoTamanhoAtivo = card.querySelector('[data-tamanho].active');
-      const tamanho = botaoTamanhoAtivo ? botaoTamanhoAtivo.dataset.tamanho : 'P';
-      const nomePrato = card.querySelector('h5').textContent.trim();
-      const preco = precos[tamanho];
+      let carboidratoDescricao = selecao.carboidrato;
+      if (selecao.carboidrato === 'Macarrão') {
+        carboidratoDescricao = `Macarrão (molho ${selecao.molho})`;
+      } else if (FEIJOES.includes(selecao.carboidrato)) {
+        carboidratoDescricao = `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`;
+      }
+
+      const nomePrato = `Marmita ${tamanho} — ${selecao.proteina}, ${carboidratoDescricao}, ${selecao.legume}`;
+      const preco = TAMANHOS_MARMITA[tamanho].preco;
 
       const params = new URLSearchParams({
         prato: nomePrato,
@@ -95,7 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       window.location.href = `checkout.html?${params.toString()}`;
     });
-  });
+
+    atualizarMontador();
+  }
 
   // ---------- Checkout: resumo do pedido, quantidade e finalização ----------
   const checkoutConteudo = document.getElementById('checkout-conteudo');

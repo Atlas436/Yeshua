@@ -280,6 +280,66 @@ section { padding: 5rem 0; }
   border-color: transparent;
 }
 
+/* ---------- Montador de marmita (cardápio) ---------- */
+.tamanho-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  background: var(--carvao);
+  border: 1.5px solid rgba(201, 162, 39, 0.25);
+  border-radius: var(--radius);
+  padding: 1.75rem 1rem;
+  color: var(--bege);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.tamanho-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 162, 39, 0.6);
+}
+.tamanho-card.active {
+  border-color: var(--dourado);
+  box-shadow: var(--shadow-dourada);
+  background: linear-gradient(160deg, rgba(201,162,39,0.16), var(--carvao));
+}
+.tamanho-card-letra {
+  font-family: var(--fonte-titulo);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dourado-claro);
+  line-height: 1;
+}
+.tamanho-card-peso {
+  font-weight: 600;
+  color: var(--bege);
+}
+.tamanho-card-detalhe {
+  font-size: 0.8rem;
+  text-align: center;
+  color: rgba(244, 236, 221, 0.65);
+}
+.tamanho-card-preco {
+  font-family: var(--fonte-titulo);
+  font-size: 1.4rem;
+  color: var(--dourado);
+  margin-top: 0.35rem;
+}
+
+.chip-ingrediente {
+  border-radius: 50rem;
+}
+.chip-ingrediente.active {
+  background: linear-gradient(135deg, var(--dourado-claro), var(--dourado));
+  color: var(--preto);
+  border-color: transparent;
+  font-weight: 600;
+}
+.chip-ingrediente[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 /* ---------- Passos (como funciona) ---------- */
 .passo-numero {
   width: 48px;
