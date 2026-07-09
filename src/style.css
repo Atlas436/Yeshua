@@ -151,6 +151,8 @@ a:hover {
 .hero-yeshua {
   position: relative;
   min-height: 88vh;
+  padding-top: 7.5rem;
+  padding-bottom: 3rem;
   display: flex;
   align-items: center;
   background:

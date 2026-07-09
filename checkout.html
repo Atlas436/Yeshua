@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personalizar Encomenda | Yeshua Marmitas Fit</title>
-  <meta name="description" content="Monte sua encomenda personalizada de marmita fit congelada: tamanho, proteína, restrições e quantidade." />
+  <title>Finalizar Pedido | Yeshua Marmitas Fit</title>
+  <meta name="description" content="Finalize a compra de uma marmita do cardápio fixo Yeshua: confirme quantidade, endereço e forma de pagamento." />
   <link rel="icon" type="image/svg+xml" href="/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,105 +35,127 @@
   </nav>
 
   <!-- ===== Cabeçalho ===== -->
-  <header class="hero-yeshua" style="min-height: 40vh;">
+  <header class="hero-yeshua" style="min-height: 34vh;">
     <div class="container text-center">
-      <p class="kicker mb-3">Sua marmita, do seu jeito</p>
-      <h1 class="fonte-titulo mb-3">Encomenda <span class="text-dourado">personalizada</span></h1>
+      <p class="kicker mb-3">Quase lá</p>
+      <h1 class="fonte-titulo mb-3">Finalizar <span class="text-dourado">pedido</span></h1>
       <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(244,236,221,0.85);">
-        Preencha o formulário e enviaremos seu pedido direto para o nosso WhatsApp, para confirmarmos os detalhes.
+        Confirme os detalhes da sua marmita e feche o pedido direto com a gente.
       </p>
     </div>
   </header>
 
-  <!-- ===== Formulário ===== -->
-  <section class="bg-preto">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
+  <!-- ===== Sem prato selecionado ===== -->
+  <section id="checkout-vazio" class="bg-preto d-none">
+    <div class="container text-center">
+      <div class="card-yeshua p-5 mx-auto" style="max-width: 560px;">
+        <h3 class="fonte-titulo mb-3">Nenhum prato selecionado</h3>
+        <p class="mb-4" style="color: rgba(244,236,221,0.75);">Volte ao cardápio e escolha uma marmita para continuar o pedido.</p>
+        <a href="cardapio.html" class="btn btn-dourado">Ver cardápio</a>
+      </div>
+    </div>
+  </section>
 
-          <div id="alerta-envio" class="alert d-none" style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.4); color: #d7fbe6;" role="alert">
-            Seu pedido foi montado! Confirme o envio na aba do WhatsApp que abrimos para você.
+  <!-- ===== Checkout ===== -->
+  <section id="checkout-conteudo" class="bg-preto">
+    <div class="container">
+      <div class="row justify-content-center g-4">
+
+        <!-- Resumo do pedido -->
+        <div class="col-lg-5">
+          <div class="card-yeshua p-4 p-md-5">
+            <h5 class="fonte-titulo mb-4">Resumo do pedido</h5>
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span id="resumo-prato" class="fw-semibold" style="max-width: 70%;">—</span>
+              <span class="badge badge-categoria rounded-pill" id="resumo-tamanho">—</span>
+            </div>
+            <p class="small mb-4" style="color: rgba(244,236,221,0.6);">Preço unitário: <span id="resumo-preco-unit" class="text-dourado-claro">R$ 0,00</span></p>
+
+            <label class="form-label d-block">Quantidade</label>
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <button type="button" id="qtd-menos" class="btn btn-outline-dourado" aria-label="Diminuir quantidade">−</button>
+              <span id="resumo-quantidade" class="fonte-titulo fs-4" style="min-width: 2.5rem; text-align: center;">1</span>
+              <button type="button" id="qtd-mais" class="btn btn-outline-dourado" aria-label="Aumentar quantidade">+</button>
+            </div>
+
+            <hr style="border-color: rgba(201,162,39,0.2);" />
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fonte-titulo">Subtotal</span>
+              <span id="resumo-subtotal" class="fonte-titulo fs-3 text-dourado">R$ 0,00</span>
+            </div>
+            <p class="small mt-2 mb-0" style="color: rgba(244,236,221,0.5);">Frete calculado à parte, conforme o bairro de entrega.</p>
+          </div>
+        </div>
+
+        <!-- Dados de entrega e pagamento -->
+        <div class="col-lg-7">
+          <div id="alerta-checkout" class="alert d-none" style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.4); color: #d7fbe6;" role="alert">
+            Pedido montado! Confirme o envio na aba do WhatsApp que abrimos para você.
           </div>
 
-          <form id="form-personalizar" class="form-yeshua card-yeshua p-4 p-md-5 needs-validation" novalidate>
+          <form id="form-checkout" class="form-yeshua card-yeshua p-4 p-md-5 needs-validation" novalidate>
+            <h5 class="fonte-titulo mb-4">Entrega e pagamento</h5>
             <div class="row g-4">
 
               <div class="col-md-6">
-                <label for="nome" class="form-label">Nome completo</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome" required>
+                <label for="checkout-nome" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="checkout-nome" name="nome" placeholder="Seu nome" required>
                 <div class="invalid-feedback">Informe seu nome.</div>
               </div>
 
               <div class="col-md-6">
-                <label for="telefone" class="form-label">WhatsApp para contato</label>
-                <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(11) 90000-0000" required>
+                <label for="checkout-telefone" class="form-label">WhatsApp para contato</label>
+                <input type="tel" class="form-control" id="checkout-telefone" name="telefone" placeholder="(11) 90000-0000" required>
                 <div class="invalid-feedback">Informe um telefone válido.</div>
               </div>
 
               <div class="col-md-8">
-                <label for="bairro" class="form-label">Bairro / Região em São Paulo</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Ex.: Vila Mariana, Zona Sul" required>
-                <div class="invalid-feedback">Informe o bairro ou região de entrega.</div>
+                <label for="checkout-endereco" class="form-label">Endereço (rua e número)</label>
+                <input type="text" class="form-control" id="checkout-endereco" name="endereco" placeholder="Ex.: Rua das Flores, 123" required>
+                <div class="invalid-feedback">Informe o endereço de entrega.</div>
               </div>
 
               <div class="col-md-4">
-                <label for="data-entrega" class="form-label">Data desejada</label>
-                <input type="date" class="form-control" id="data-entrega" name="data-entrega" required>
+                <label for="checkout-bairro" class="form-label">Bairro / Região (SP)</label>
+                <input type="text" class="form-control" id="checkout-bairro" name="bairro" placeholder="Ex.: Vila Mariana" required>
+                <div class="invalid-feedback">Informe o bairro.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="checkout-data" class="form-label">Data desejada de entrega</label>
+                <input type="date" class="form-control" id="checkout-data" name="data-entrega" required>
                 <div class="invalid-feedback">Escolha uma data.</div>
               </div>
 
+              <div class="col-md-6">
+                <label for="checkout-complemento" class="form-label">Complemento (opcional)</label>
+                <input type="text" class="form-control" id="checkout-complemento" name="complemento" placeholder="Apto, bloco, referência...">
+              </div>
+
               <div class="col-12">
-                <label class="form-label d-block">Tamanho da marmita</label>
-                <div class="btn-group w-100" role="group" aria-label="Tamanho">
-                  <input type="radio" class="btn-check" name="tamanho" id="tamanho-p" value="P (~300g)" autocomplete="off" required>
-                  <label class="btn btn-outline-dourado" for="tamanho-p">P · ~300g</label>
+                <label class="form-label d-block">Forma de pagamento</label>
+                <div class="btn-group w-100 flex-wrap" role="group" aria-label="Forma de pagamento">
+                  <input type="radio" class="btn-check" name="pagamento" id="pagamento-pix" value="Pix" autocomplete="off" required>
+                  <label class="btn btn-outline-dourado" for="pagamento-pix">Pix</label>
 
-                  <input type="radio" class="btn-check" name="tamanho" id="tamanho-m" value="M (~400g)" autocomplete="off">
-                  <label class="btn btn-outline-dourado" for="tamanho-m">M · ~400g</label>
+                  <input type="radio" class="btn-check" name="pagamento" id="pagamento-cartao" value="Cartão na entrega" autocomplete="off">
+                  <label class="btn btn-outline-dourado" for="pagamento-cartao">Cartão na entrega</label>
 
-                  <input type="radio" class="btn-check" name="tamanho" id="tamanho-g" value="G (~550g)" autocomplete="off">
-                  <label class="btn btn-outline-dourado" for="tamanho-g">G · ~550g</label>
+                  <input type="radio" class="btn-check" name="pagamento" id="pagamento-dinheiro" value="Dinheiro na entrega" autocomplete="off">
+                  <label class="btn btn-outline-dourado" for="pagamento-dinheiro">Dinheiro na entrega</label>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <label for="quantidade" class="form-label">Quantidade de marmitas</label>
-                <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" value="7" required>
-                <div class="invalid-feedback">Informe a quantidade.</div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="proteina" class="form-label">Proteína preferida</label>
-                <select class="form-select" id="proteina" name="proteina" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option>Frango</option>
-                  <option>Carne bovina</option>
-                  <option>Peixe</option>
-                  <option>Vegetariano</option>
-                  <option>Variado (a critério da Yeshua)</option>
-                </select>
-                <div class="invalid-feedback">Selecione uma proteína.</div>
-              </div>
-
-              <div class="col-12">
-                <label for="restricoes" class="form-label">Restrições alimentares ou alergias</label>
-                <input type="text" class="form-control" id="restricoes" name="restricoes" placeholder="Ex.: sem lactose, sem glúten, sem pimenta...">
-              </div>
-
-              <div class="col-12">
-                <label for="observacoes" class="form-label">Observações</label>
-                <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Detalhes extras sobre sua encomenda"></textarea>
-              </div>
-
               <div class="col-12 text-center pt-3">
-                <button type="submit" class="btn btn-whatsapp px-5">Enviar pedido pelo WhatsApp</button>
-                <p class="small mt-3 mb-0" style="color: rgba(244,236,221,0.6);">Ao enviar, você será direcionado ao WhatsApp da Yeshua para confirmar seu pedido e forma de pagamento.</p>
+                <button type="submit" class="btn btn-whatsapp px-5">Finalizar pedido pelo WhatsApp</button>
+                <p class="small mt-3 mb-0" style="color: rgba(244,236,221,0.6);">Ao finalizar, você será direcionado ao WhatsApp da Yeshua para confirmar pagamento e entrega.</p>
               </div>
 
             </div>
           </form>
-
         </div>
+
       </div>
     </div>
   </section>

@@ -55,6 +55,100 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---------- Cardápio: botão "Comprar" leva para o checkout do prato ----------
+  document.querySelectorAll('[data-comprar]').forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const card = botao.closest('[data-precos]');
+      const precos = JSON.parse(card.dataset.precos);
+      const botaoTamanhoAtivo = card.querySelector('[data-tamanho].active');
+      const tamanho = botaoTamanhoAtivo ? botaoTamanhoAtivo.dataset.tamanho : 'P';
+      const nomePrato = card.querySelector('h5').textContent.trim();
+      const preco = precos[tamanho];
+
+      const params = new URLSearchParams({
+        prato: nomePrato,
+        tamanho,
+        preco: preco.toFixed(2),
+      });
+      window.location.href = `checkout.html?${params.toString()}`;
+    });
+  });
+
+  // ---------- Checkout: resumo do pedido, quantidade e finalização ----------
+  const checkoutConteudo = document.getElementById('checkout-conteudo');
+  if (checkoutConteudo) {
+    const parametros = new URLSearchParams(window.location.search);
+    const prato = parametros.get('prato');
+    const tamanho = parametros.get('tamanho');
+    const precoUnitario = parseFloat(parametros.get('preco'));
+
+    if (!prato || !tamanho || Number.isNaN(precoUnitario)) {
+      checkoutConteudo.classList.add('d-none');
+      document.getElementById('checkout-vazio').classList.remove('d-none');
+    } else {
+      const formatarMoeda = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+      document.getElementById('resumo-prato').textContent = prato;
+      document.getElementById('resumo-tamanho').textContent = tamanho;
+      document.getElementById('resumo-preco-unit').textContent = formatarMoeda(precoUnitario);
+
+      let quantidade = 1;
+      const quantidadeEl = document.getElementById('resumo-quantidade');
+      const subtotalEl = document.getElementById('resumo-subtotal');
+      const atualizarSubtotal = () => {
+        quantidadeEl.textContent = quantidade;
+        subtotalEl.textContent = formatarMoeda(precoUnitario * quantidade);
+      };
+      atualizarSubtotal();
+
+      document.getElementById('qtd-menos').addEventListener('click', () => {
+        if (quantidade > 1) {
+          quantidade -= 1;
+          atualizarSubtotal();
+        }
+      });
+      document.getElementById('qtd-mais').addEventListener('click', () => {
+        quantidade += 1;
+        atualizarSubtotal();
+      });
+
+      const formCheckout = document.getElementById('form-checkout');
+      formCheckout.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!formCheckout.checkValidity()) {
+          formCheckout.classList.add('was-validated');
+          return;
+        }
+
+        const dados = new FormData(formCheckout);
+        const mensagem = [
+          '*Novo pedido — Yeshua Marmitas Fit*',
+          `Prato: ${prato}`,
+          `Tamanho: ${tamanho}`,
+          `Quantidade: ${quantidade}`,
+          `Subtotal: ${formatarMoeda(precoUnitario * quantidade)}`,
+          '',
+          `Nome: ${dados.get('nome')}`,
+          `Telefone: ${dados.get('telefone')}`,
+          `Endereço: ${dados.get('endereco')}`,
+          `Complemento: ${dados.get('complemento') || '—'}`,
+          `Bairro/Região (SP): ${dados.get('bairro')}`,
+          `Data desejada de entrega: ${dados.get('data-entrega')}`,
+          `Forma de pagamento: ${dados.get('pagamento')}`,
+        ].join('\n');
+
+        const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, '_blank', 'noopener');
+
+        const alerta = document.getElementById('alerta-checkout');
+        alerta.classList.remove('d-none');
+        alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        formCheckout.reset();
+        formCheckout.classList.remove('was-validated');
+      });
+    }
+  }
+
   // ---------- Formulário: Encomenda personalizada -> WhatsApp ----------
   const formPersonalizar = document.getElementById('form-personalizar');
   if (formPersonalizar) {
