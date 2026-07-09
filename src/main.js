@@ -5,6 +5,19 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // ⚠️ Substitua pelo número real do WhatsApp da loja (formato DDI+DDD+número, só dígitos).
 export const WHATSAPP_NUMERO = '5511999999999';
 
+// ⚠️ Valores de frete de exemplo — ajuste para os valores reais de cada região.
+export const FRETE_POR_ZONA = {
+  'Centro': 8,
+  'Zona Sul': 12,
+  'Zona Oeste': 12,
+  'Zona Norte': 15,
+  'Zona Leste': 15,
+  'Grande SP': 25,
+};
+
+// ⚠️ Valor mínimo de pratos (sem contar o frete) para o frete sair grátis.
+export const FRETE_GRATIS_ACIMA_DE = 150;
+
 // ---------- Tela de carregamento (evita o "susto" do leão surgindo de repente) ----------
 window.addEventListener('load', () => {
   const loader = document.getElementById('page-loader');
@@ -101,26 +114,57 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resumo-prato').textContent = prato;
       document.getElementById('resumo-tamanho').textContent = tamanho;
       document.getElementById('resumo-preco-unit').textContent = formatarMoeda(precoUnitario);
+      document.getElementById('frete-gratis-valor').textContent = formatarMoeda(FRETE_GRATIS_ACIMA_DE);
 
       let quantidade = 1;
       const quantidadeEl = document.getElementById('resumo-quantidade');
       const subtotalEl = document.getElementById('resumo-subtotal');
-      const atualizarSubtotal = () => {
-        quantidadeEl.textContent = quantidade;
-        subtotalEl.textContent = formatarMoeda(precoUnitario * quantidade);
+      const freteEl = document.getElementById('resumo-frete');
+      const freteZonaEl = document.getElementById('resumo-frete-zona');
+      const freteGratisAvisoEl = document.getElementById('resumo-frete-gratis-aviso');
+      const totalEl = document.getElementById('resumo-total');
+      const zonaSelect = document.getElementById('checkout-zona');
+
+      const calcularFrete = (subtotal, zona) => {
+        if (subtotal >= FRETE_GRATIS_ACIMA_DE) return 0;
+        if (!zona || !(zona in FRETE_POR_ZONA)) return null;
+        return FRETE_POR_ZONA[zona];
       };
-      atualizarSubtotal();
+
+      const atualizarResumo = () => {
+        const subtotal = precoUnitario * quantidade;
+        const zona = zonaSelect.value;
+        const frete = calcularFrete(subtotal, zona);
+
+        quantidadeEl.textContent = quantidade;
+        subtotalEl.textContent = formatarMoeda(subtotal);
+        freteZonaEl.textContent = zona ? ` (${zona})` : '';
+        freteGratisAvisoEl.classList.toggle('d-none', subtotal < FRETE_GRATIS_ACIMA_DE);
+
+        if (frete === null) {
+          freteEl.textContent = 'Selecione a zona';
+          totalEl.textContent = formatarMoeda(subtotal);
+        } else if (frete === 0) {
+          freteEl.textContent = 'Grátis';
+          totalEl.textContent = formatarMoeda(subtotal);
+        } else {
+          freteEl.textContent = formatarMoeda(frete);
+          totalEl.textContent = formatarMoeda(subtotal + frete);
+        }
+      };
+      atualizarResumo();
 
       document.getElementById('qtd-menos').addEventListener('click', () => {
         if (quantidade > 1) {
           quantidade -= 1;
-          atualizarSubtotal();
+          atualizarResumo();
         }
       });
       document.getElementById('qtd-mais').addEventListener('click', () => {
         quantidade += 1;
-        atualizarSubtotal();
+        atualizarResumo();
       });
+      zonaSelect.addEventListener('change', atualizarResumo);
 
       const formCheckout = document.getElementById('form-checkout');
       formCheckout.addEventListener('submit', (e) => {
@@ -131,18 +175,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const dados = new FormData(formCheckout);
+        const subtotal = precoUnitario * quantidade;
+        const zona = dados.get('zona');
+        const frete = calcularFrete(subtotal, zona) ?? 0;
+        const total = subtotal + frete;
+
         const mensagem = [
           '*Novo pedido — Yeshua Marmitas Fit*',
           `Prato: ${prato}`,
           `Tamanho: ${tamanho}`,
           `Quantidade: ${quantidade}`,
-          `Subtotal: ${formatarMoeda(precoUnitario * quantidade)}`,
+          `Subtotal: ${formatarMoeda(subtotal)}`,
+          `Frete (${zona}): ${frete === 0 ? 'Grátis' : formatarMoeda(frete)}`,
+          `*Total: ${formatarMoeda(total)}*`,
           '',
           `Nome: ${dados.get('nome')}`,
           `Telefone: ${dados.get('telefone')}`,
           `Endereço: ${dados.get('endereco')}`,
           `Complemento: ${dados.get('complemento') || '—'}`,
-          `Bairro/Região (SP): ${dados.get('bairro')}`,
+          `Bairro: ${dados.get('bairro')}`,
+          `Zona de entrega: ${zona}`,
           `Data desejada de entrega: ${dados.get('data-entrega')}`,
           `Forma de pagamento: ${dados.get('pagamento')}`,
         ].join('\n');
@@ -155,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         formCheckout.reset();
         formCheckout.classList.remove('was-validated');
+        atualizarResumo();
       });
     }
   }

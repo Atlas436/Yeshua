@@ -97,11 +97,21 @@
             </div>
 
             <hr style="border-color: rgba(201,162,39,0.2);" />
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="fonte-titulo">Subtotal</span>
-              <span id="resumo-subtotal" class="fonte-titulo fs-3 text-dourado">R$ 0,00</span>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span>Subtotal</span>
+              <span id="resumo-subtotal" class="text-dourado-claro">R$ 0,00</span>
             </div>
-            <p class="small mt-2 mb-0" style="color: rgba(244,236,221,0.5);">Frete calculado à parte, conforme o bairro de entrega.</p>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span>Frete<span id="resumo-frete-zona" class="small" style="color: rgba(244,236,221,0.5);"></span></span>
+              <span id="resumo-frete" class="text-dourado-claro">Selecione a zona</span>
+            </div>
+            <p id="resumo-frete-gratis-aviso" class="small mb-3 d-none" style="color: #8fd9a8;">🎉 Frete grátis a partir de <span id="frete-gratis-valor"></span> em pratos!</p>
+            <hr style="border-color: rgba(201,162,39,0.2);" />
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fonte-titulo">Total</span>
+              <span id="resumo-total" class="fonte-titulo fs-3 text-dourado">R$ 0,00</span>
+            </div>
+            <p class="small mt-2 mb-0" style="color: rgba(244,236,221,0.5);">Frete estimado por zona; a confirmação final acontece pelo WhatsApp.</p>
           </div>
         </div>
 
@@ -127,16 +137,30 @@
                 <div class="invalid-feedback">Informe um telefone válido.</div>
               </div>
 
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <label for="checkout-endereco" class="form-label">Endereço (rua e número)</label>
                 <input type="text" class="form-control" id="checkout-endereco" name="endereco" placeholder="Ex.: Rua das Flores, 123" required>
                 <div class="invalid-feedback">Informe o endereço de entrega.</div>
               </div>
 
-              <div class="col-md-4">
-                <label for="checkout-bairro" class="form-label">Bairro / Região (SP)</label>
+              <div class="col-md-6">
+                <label for="checkout-bairro" class="form-label">Bairro</label>
                 <input type="text" class="form-control" id="checkout-bairro" name="bairro" placeholder="Ex.: Vila Mariana" required>
                 <div class="invalid-feedback">Informe o bairro.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="checkout-zona" class="form-label">Zona de entrega (para calcular o frete)</label>
+                <select class="form-select" id="checkout-zona" name="zona" required>
+                  <option value="" selected disabled>Selecione sua região</option>
+                  <option value="Centro">Centro</option>
+                  <option value="Zona Sul">Zona Sul</option>
+                  <option value="Zona Oeste">Zona Oeste</option>
+                  <option value="Zona Norte">Zona Norte</option>
+                  <option value="Zona Leste">Zona Leste</option>
+                  <option value="Grande SP">Grande São Paulo</option>
+                </select>
+                <div class="invalid-feedback">Selecione a zona de entrega.</div>
               </div>
 
               <div class="col-md-6">
@@ -145,7 +169,7 @@
                 <div class="invalid-feedback">Escolha uma data.</div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-12">
                 <label for="checkout-complemento" class="form-label">Complemento (opcional)</label>
                 <input type="text" class="form-control" id="checkout-complemento" name="complemento" placeholder="Apto, bloco, referência...">
               </div>
