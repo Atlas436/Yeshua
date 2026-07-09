@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardápio Fixo | Yeshua Marmitas Fit</title>
+  <meta name="description" content="Cardápio fixo de marmitas fit congeladas nos tamanhos P, M e G. Compre online e receba em toda São Paulo." />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-yeshua fixed-top py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="/logo.svg" alt="Yeshua Marmitas Fit" class="logo-nav" />
+        Yeshua
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="cardapio.html">Cardápio</a></li>
+          <li class="nav-item"><a class="nav-link" href="personalizar.html">Personalizar</a></li>
+          <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-dourado btn-sm" href="personalizar.html">Personalizar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Cabeçalho da página ===== -->
+  <header class="hero-yeshua" style="min-height: 46vh;">
+    <div class="container text-center">
+      <p class="kicker mb-3">Cardápio da semana</p>
+      <h1 class="fonte-titulo mb-3">Sabor fit em três <span class="text-dourado">tamanhos</span></h1>
+      <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(244,236,221,0.85);">
+        Pratos fixos, prontos para pedir. Escolha o tamanho ideal para o seu dia e compre online.
+      </p>
+      <div class="tamanhos-lista mx-auto mt-4" style="max-width: 420px;">
+        <div class="tamanho-pill"><strong>P</strong>Pequena · ~300g</div>
+        <div class="tamanho-pill"><strong>M</strong>Média · ~400g</div>
+        <div class="tamanho-pill"><strong>G</strong>Grande · ~550g</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Filtros ===== -->
+  <section class="bg-preto pt-5 pb-0">
+    <div class="container">
+      <ul class="nav nav-pills-yeshua justify-content-center mb-5" id="filtroCardapio">
+        <li class="nav-item">
+          <button class="nav-link active" data-filtro-categoria="todos">Todos</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-filtro-categoria="frango">Frango</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-filtro-categoria="carne">Carne</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-filtro-categoria="peixe">Peixe</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-filtro-categoria="vegetariano">Vegetariano</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-filtro-categoria="lowcarb">Low carb</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Grade de pratos ===== -->
+  <section class="bg-preto pt-0">
+    <div class="container">
+      <div class="row g-4" id="gradePratos">
+
+        <!-- Prato 1 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="frango">
+          <article class="prato-card" data-categoria="frango" data-precos='{"P": 19.9, "M": 24.9, "G": 29.9}'>
+            <div class="prato-imagem">🍗</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Frango</span>
+              <h5 class="fonte-titulo">Frango grelhado, batata-doce e brócolis</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Peito de frango grelhado, batata-doce assada e brócolis no vapor.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 19,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Prato 2 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="carne">
+          <article class="prato-card" data-categoria="carne" data-precos='{"P": 21.9, "M": 26.9, "G": 31.9}'>
+            <div class="prato-imagem">🥩</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Carne</span>
+              <h5 class="fonte-titulo">Carne moída, purê de mandioquinha e vagem</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Carne moída refogada, purê cremoso de mandioquinha e vagem salteada.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 21,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Prato 3 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="peixe">
+          <article class="prato-card" data-categoria="peixe" data-precos='{"P": 23.9, "M": 28.9, "G": 33.9}'>
+            <div class="prato-imagem">🐟</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Peixe</span>
+              <h5 class="fonte-titulo">Salmão grelhado com legumes salteados</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Salmão grelhado, mix de legumes salteados e arroz integral.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 23,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Prato 4 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="frango">
+          <article class="prato-card" data-categoria="frango" data-precos='{"P": 20.9, "M": 25.9, "G": 30.9}'>
+            <div class="prato-imagem">🍛</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Frango</span>
+              <h5 class="fonte-titulo">Strogonoff fit de frango com arroz integral</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Strogonoff leve de frango, molho sem creme de leite e arroz integral.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 20,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Prato 5 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="vegetariano">
+          <article class="prato-card" data-categoria="vegetariano" data-precos='{"P": 18.9, "M": 23.9, "G": 28.9}'>
+            <div class="prato-imagem">🥗</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Vegetariano</span>
+              <h5 class="fonte-titulo">Bowl de grão-de-bico, quinoa e legumes</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Grão-de-bico temperado, quinoa e legumes assados da estação.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 18,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Prato 6 -->
+        <div class="col-md-6 col-lg-4 prato-wrapper" data-categoria="lowcarb">
+          <article class="prato-card" data-categoria="lowcarb" data-precos='{"P": 21.9, "M": 26.9, "G": 31.9}'>
+            <div class="prato-imagem">🥦</div>
+            <div class="p-4">
+              <span class="badge badge-categoria rounded-pill mb-2">Low carb</span>
+              <h5 class="fonte-titulo">Frango ao curry com couve-flor</h5>
+              <p class="small" style="color: rgba(244,236,221,0.7);">Frango ao curry leve com arroz de couve-flor e castanhas.</p>
+              <div class="d-flex gap-2 mb-3" role="group" aria-label="Escolher tamanho">
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill active" data-tamanho="P">P</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="M">M</button>
+                <button type="button" class="btn btn-sm btn-outline-dourado flex-fill" data-tamanho="G">G</button>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fonte-titulo fs-5 text-dourado" data-preco-exibido>R$ 21,90</span>
+                <a href="personalizar.html" class="btn btn-terracota btn-sm">Comprar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA personalização ===== -->
+  <section class="bg-preto-suave">
+    <div class="container text-center">
+      <h3 class="fonte-titulo mb-3">Não encontrou o que queria?</h3>
+      <p class="mb-4" style="color: rgba(244,236,221,0.8);">Monte uma encomenda personalizada com a proteína, tamanho e quantidade que preferir.</p>
+      <a href="personalizar.html" class="btn btn-dourado">Personalizar minha encomenda</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer-yeshua py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none mb-3">
+            <img src="/logo.svg" alt="Yeshua" width="36" height="36" />
+            <span class="fonte-titulo fs-4 text-dourado-claro">Yeshua</span>
+          </a>
+          <p class="small">Marmitas fit congeladas com sabor, força e nobreza — entregues em toda São Paulo.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="icone-social" aria-label="Instagram da Yeshua">IG</a>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="icone-social" aria-label="WhatsApp da Yeshua">WA</a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="text-dourado-claro mb-3">Navegação</h6>
+          <ul class="list-unstyled small d-flex flex-column gap-2">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cardapio.html">Cardápio</a></li>
+            <li><a href="personalizar.html">Personalizar</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h6 class="text-dourado-claro mb-3">Atendimento</h6>
+          <ul class="list-unstyled small d-flex flex-column gap-2">
+            <li>Seg. a Sáb. · 8h às 20h</li>
+            <li>WhatsApp: (11) 99999-9999</li>
+            <li>contato@yeshuamarmitas.com.br</li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h6 class="text-dourado-claro mb-3">Entrega</h6>
+          <p class="small mb-0">Atendemos toda a cidade de São Paulo e Grande São Paulo. Consulte prazo e frete para sua região.</p>
+        </div>
+      </div>
+      <hr style="border-color: rgba(201,162,39,0.2);" class="my-4" />
+      <p class="small text-center mb-0">© <span data-ano-atual>2026</span> Yeshua Marmitas Fit. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="whatsapp-flutuante" aria-label="Fale conosco pelo WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.588-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.336-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
+  </a>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

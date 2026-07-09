@@ -1,0 +1,375 @@
+/* ============================================================
+   YESHUA — Marmitas Fit Congeladas
+   Paleta: preto, dourado (escuro/claro), terracota (escuro/claro)
+   ============================================================ */
+
+:root {
+  --preto: #0d0d0d;
+  --preto-suave: #1a1712;
+  --carvao: #24201a;
+
+  --dourado-escuro: #8a6a16;
+  --dourado: #c9a227;
+  --dourado-claro: #e9ce7a;
+
+  --terracota-escura: #8c3a2b;
+  --terracota: #b5502d;
+  --terracota-clara: #d98b6f;
+
+  --bege: #f4ecdd;
+  --branco: #fffaf0;
+
+  --fonte-titulo: "Playfair Display", "Georgia", serif;
+  --fonte-corpo: "Poppins", "Segoe UI", sans-serif;
+
+  --radius: 0.75rem;
+  --shadow-dourada: 0 0.5rem 1.5rem rgba(201, 162, 39, 0.18);
+}
+
+html {
+  scroll-padding-top: 96px;
+  scroll-behavior: smooth;
+}
+
+/* ---------- Base ---------- */
+body {
+  background-color: var(--preto);
+  color: var(--bege);
+  font-family: var(--fonte-corpo);
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, .fonte-titulo {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--dourado-claro);
+}
+a:hover {
+  color: var(--dourado);
+}
+
+.text-dourado { color: var(--dourado) !important; }
+.text-dourado-claro { color: var(--dourado-claro) !important; }
+.text-terracota { color: var(--terracota-clara) !important; }
+.bg-preto { background-color: var(--preto) !important; }
+.bg-preto-suave { background-color: var(--preto-suave) !important; }
+.bg-carvao { background-color: var(--carvao) !important; }
+.bg-terracota { background-color: var(--terracota) !important; }
+.bg-terracota-escura { background-color: var(--terracota-escura) !important; }
+
+.divisor-dourado {
+  width: 5rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado-claro));
+  border: none;
+  border-radius: 3px;
+  margin: 1rem auto;
+}
+.divisor-dourado.start-align { margin-left: 0; }
+
+/* ---------- Navbar ---------- */
+.navbar-yeshua {
+  background-color: rgba(13, 13, 13, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+}
+.navbar-yeshua .navbar-brand {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  color: var(--dourado-claro);
+  letter-spacing: 0.05em;
+}
+.navbar-yeshua .nav-link {
+  color: var(--bege);
+  font-weight: 500;
+  margin: 0 0.35rem;
+}
+.navbar-yeshua .nav-link:hover,
+.navbar-yeshua .nav-link.active {
+  color: var(--dourado);
+}
+.logo-nav {
+  width: 42px;
+  height: 42px;
+}
+
+/* ---------- Botões ---------- */
+.btn-dourado {
+  background: linear-gradient(135deg, var(--dourado-claro), var(--dourado));
+  color: var(--preto);
+  border: none;
+  font-weight: 600;
+  border-radius: 50rem;
+  padding: 0.65rem 1.75rem;
+  box-shadow: var(--shadow-dourada);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-dourado:hover {
+  color: var(--preto);
+  transform: translateY(-2px);
+  box-shadow: 0 0.75rem 1.75rem rgba(201, 162, 39, 0.3);
+}
+.btn-outline-dourado {
+  border: 1.5px solid var(--dourado);
+  color: var(--dourado-claro);
+  border-radius: 50rem;
+  padding: 0.6rem 1.75rem;
+  font-weight: 600;
+  background: transparent;
+}
+.btn-outline-dourado:hover {
+  background: var(--dourado);
+  color: var(--preto);
+}
+.btn-terracota {
+  background: linear-gradient(135deg, var(--terracota-clara), var(--terracota));
+  color: var(--branco);
+  border: none;
+  font-weight: 600;
+  border-radius: 50rem;
+  padding: 0.65rem 1.75rem;
+}
+.btn-terracota:hover {
+  color: var(--branco);
+  filter: brightness(1.08);
+}
+.btn-whatsapp {
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 50rem;
+  font-weight: 600;
+  padding: 0.65rem 1.75rem;
+}
+.btn-whatsapp:hover { color: #fff; filter: brightness(1.05); }
+
+/* ---------- Hero ---------- */
+.hero-yeshua {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 75% 20%, rgba(201, 162, 39, 0.16), transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(181, 80, 45, 0.18), transparent 55%),
+    linear-gradient(180deg, var(--preto) 0%, var(--preto-suave) 100%);
+  overflow: hidden;
+}
+.hero-yeshua::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(201,162,39,0.035) 0 2px, transparent 2px 40px);
+  pointer-events: none;
+}
+.hero-logo {
+  width: min(320px, 70vw);
+  filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.5));
+}
+.hero-yeshua .kicker {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--terracota-clara);
+  font-weight: 600;
+}
+.hero-yeshua h1 {
+  font-size: clamp(2.3rem, 5vw, 3.75rem);
+  color: var(--branco);
+}
+
+/* ---------- Seções ---------- */
+section { padding: 5rem 0; }
+.secao-titulo {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.secao-titulo p.kicker {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--terracota-clara);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Cards ---------- */
+.card-yeshua {
+  background: linear-gradient(160deg, var(--carvao), var(--preto-suave));
+  border: 1px solid rgba(201, 162, 39, 0.18);
+  border-radius: var(--radius);
+  color: var(--bege);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  height: 100%;
+}
+.card-yeshua:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 162, 39, 0.55);
+  box-shadow: var(--shadow-dourada);
+}
+.card-yeshua .icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 162, 39, 0.12);
+  color: var(--dourado);
+  font-size: 1.5rem;
+}
+
+/* ---------- Cardápio ---------- */
+.prato-card {
+  background: var(--carvao);
+  border: 1px solid rgba(201, 162, 39, 0.15);
+  border-radius: var(--radius);
+  overflow: hidden;
+  height: 100%;
+}
+.prato-imagem {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.75rem;
+  background: linear-gradient(135deg, var(--terracota-escura), var(--terracota));
+  color: rgba(255,255,255,0.85);
+}
+.badge-categoria {
+  background: rgba(201, 162, 39, 0.15);
+  color: var(--dourado-claro);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  font-weight: 500;
+  font-size: 0.72rem;
+}
+.tamanhos-lista {
+  display: flex;
+  gap: 0.5rem;
+}
+.tamanho-pill {
+  flex: 1;
+  text-align: center;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.25rem;
+  font-size: 0.82rem;
+}
+.tamanho-pill strong {
+  display: block;
+  color: var(--dourado-claro);
+  font-family: var(--fonte-titulo);
+}
+
+.nav-pills-yeshua .nav-link {
+  color: var(--bege);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 50rem;
+  margin: 0.25rem;
+  font-weight: 500;
+}
+.nav-pills-yeshua .nav-link.active {
+  background: linear-gradient(135deg, var(--dourado-claro), var(--dourado));
+  color: var(--preto);
+  border-color: transparent;
+}
+
+/* ---------- Passos (como funciona) ---------- */
+.passo-numero {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--dourado);
+  color: var(--dourado-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ---------- Formulários ---------- */
+.form-yeshua label {
+  color: var(--dourado-claro);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.form-yeshua .form-control,
+.form-yeshua .form-select {
+  background-color: var(--preto-suave);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  color: var(--bege);
+}
+.form-yeshua .form-control:focus,
+.form-yeshua .form-select:focus {
+  background-color: var(--preto-suave);
+  color: var(--bege);
+  border-color: var(--dourado);
+  box-shadow: 0 0 0 0.2rem rgba(201, 162, 39, 0.2);
+}
+.form-yeshua .form-control::placeholder { color: rgba(244, 236, 221, 0.4); }
+.form-yeshua .form-check-input { background-color: var(--preto-suave); border-color: rgba(201,162,39,0.4); }
+.form-yeshua .form-check-input:checked { background-color: var(--dourado); border-color: var(--dourado); }
+.form-yeshua .btn-check:checked + .btn-outline-dourado {
+  background: var(--dourado);
+  color: var(--preto);
+}
+
+/* ---------- Footer ---------- */
+footer.footer-yeshua {
+  background: var(--preto-suave);
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+  color: rgba(244, 236, 221, 0.75);
+}
+footer.footer-yeshua a { color: rgba(244, 236, 221, 0.75); text-decoration: none; }
+footer.footer-yeshua a:hover { color: var(--dourado-claro); }
+.icone-social {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dourado-claro);
+}
+.icone-social:hover { background: var(--dourado); color: var(--preto); }
+
+/* ---------- WhatsApp flutuante ---------- */
+.whatsapp-flutuante {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1050;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.4);
+}
+.whatsapp-flutuante:hover { color: #fff; filter: brightness(1.05); }
+
+/* ---------- Utilidades ---------- */
+.faixa-dourada {
+  background: linear-gradient(90deg, var(--terracota-escura), var(--dourado-escuro), var(--terracota-escura));
+  color: var(--branco);
+}
+.zona-item {
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  border-radius: var(--radius);
+  background: var(--carvao);
+}
+
+@media (max-width: 767.98px) {
+  section { padding: 3.25rem 0; }
+}
