@@ -29,6 +29,7 @@
 html {
   scroll-padding-top: 96px;
   scroll-behavior: smooth;
+  background-color: var(--preto);
 }
 
 /* ---------- Base ---------- */
@@ -37,6 +38,26 @@ body {
   color: var(--bege);
   font-family: var(--fonte-corpo);
   font-weight: 300;
+}
+
+/* ---------- Tela de carregamento ---------- */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background-color: var(--preto);
+  background-image: radial-gradient(rgba(201, 162, 39, 0.85) 1px, transparent 1.6px);
+  background-size: 16px 16px;
+  animation: loader-brilho 1.6s linear infinite;
+  transition: opacity 0.5s ease;
+}
+#page-loader.loader-oculto { opacity: 0; pointer-events: none; }
+@keyframes loader-brilho {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #page-loader { animation: none; }
 }
 
 h1, h2, h3, h4, .fonte-titulo {
@@ -69,7 +90,6 @@ a:hover {
   border-radius: 3px;
   margin: 1rem auto;
 }
-.divisor-dourado.start-align { margin-left: 0; }
 
 /* ---------- Navbar ---------- */
 .navbar-yeshua {
@@ -226,58 +246,12 @@ section { padding: 5rem 0; }
 }
 
 /* ---------- Cardápio ---------- */
-.prato-card {
-  background: var(--carvao);
-  border: 1px solid rgba(201, 162, 39, 0.15);
-  border-radius: var(--radius);
-  overflow: hidden;
-  height: 100%;
-}
-.prato-imagem {
-  height: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.75rem;
-  background: linear-gradient(135deg, var(--terracota-escura), var(--terracota));
-  color: rgba(255,255,255,0.85);
-}
 .badge-categoria {
   background: rgba(201, 162, 39, 0.15);
   color: var(--dourado-claro);
   border: 1px solid rgba(201, 162, 39, 0.4);
   font-weight: 500;
   font-size: 0.72rem;
-}
-.tamanhos-lista {
-  display: flex;
-  gap: 0.5rem;
-}
-.tamanho-pill {
-  flex: 1;
-  text-align: center;
-  border: 1px solid rgba(201, 162, 39, 0.3);
-  border-radius: 0.5rem;
-  padding: 0.35rem 0.25rem;
-  font-size: 0.82rem;
-}
-.tamanho-pill strong {
-  display: block;
-  color: var(--dourado-claro);
-  font-family: var(--fonte-titulo);
-}
-
-.nav-pills-yeshua .nav-link {
-  color: var(--bege);
-  border: 1px solid rgba(201, 162, 39, 0.3);
-  border-radius: 50rem;
-  margin: 0.25rem;
-  font-weight: 500;
-}
-.nav-pills-yeshua .nav-link.active {
-  background: linear-gradient(135deg, var(--dourado-claro), var(--dourado));
-  color: var(--preto);
-  border-color: transparent;
 }
 
 /* ---------- Montador de marmita (cardápio) ---------- */
