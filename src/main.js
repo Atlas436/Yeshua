@@ -26,8 +26,6 @@ export const TAMANHOS_MARMITA = {
   G: { pesoTotal: 600, proteina: 250, carboidrato: 200, legume: 150, preco: 25.0 },
 };
 
-const FEIJOES = ['Feijão carioca', 'Feijão preto'];
-
 const formatarMoeda = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
 
 // ---------- Carrinho (persistido no navegador via localStorage) ----------
@@ -100,14 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (grupoTamanho) {
     const GRUPOS_INGREDIENTE = [
       'proteina', 'ovoPreparo', 'frangoPreparo',
-      'carboidrato', 'molho', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato',
+      'carboidrato', 'molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato',
       'legume', 'legumePreparo',
     ];
 
     // Sub-preparos que dependem de um ingrediente "pai" e precisam ser limpos quando ele muda.
     const DEPENDENTES = {
       proteina: ['ovoPreparo', 'frangoPreparo'],
-      carboidrato: ['molho', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato'],
+      carboidrato: ['molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato'],
     };
 
     // Descrição rápida das proteínas que não têm sub-preparo — só aparece quando a pessoa escolhe aquele chip.
@@ -138,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const blocoFrangoPreparo = document.getElementById('blocoFrangoPreparo');
     const blocoProteinaDescricao = document.getElementById('blocoProteinaDescricao');
     const blocoMolho = document.getElementById('blocoMolho');
+    const blocoArrozTipo = document.getElementById('blocoArrozTipo');
+    const blocoFeijaoTipo = document.getElementById('blocoFeijaoTipo');
     const blocoPureBatataTipo = document.getElementById('blocoPureBatataTipo');
     const blocoEscondidinhoProteina = document.getElementById('blocoEscondidinhoProteina');
     const blocoFeijaoComplemento = document.getElementById('blocoFeijaoComplemento');
@@ -178,17 +178,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (selecao.carboidrato === 'Macarrão') {
         carboidratoCompleta = Boolean(selecao.molho);
         carboidratoTxt = selecao.molho ? `Macarrão (molho ${selecao.molho})` : 'Macarrão (escolha o molho)';
+      } else if (selecao.carboidrato === 'Arroz') {
+        carboidratoCompleta = Boolean(selecao.arrozTipo);
+        carboidratoTxt = selecao.arrozTipo ? `Arroz ${selecao.arrozTipo.toLowerCase()}` : 'Arroz (escolha o tipo)';
       } else if (selecao.carboidrato === 'Purê de batata') {
         carboidratoCompleta = Boolean(selecao.pureBatataTipo);
         carboidratoTxt = selecao.pureBatataTipo ? `Purê de ${selecao.pureBatataTipo.toLowerCase()}` : 'Purê de batata (escolha o tipo)';
       } else if (selecao.carboidrato === 'Escondidinho') {
         carboidratoCompleta = Boolean(selecao.escondidinhoProteina);
         carboidratoTxt = selecao.escondidinhoProteina ? `Escondidinho de ${selecao.escondidinhoProteina}` : 'Escondidinho (escolha a proteína)';
-      } else if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
-        carboidratoCompleta = Boolean(selecao.complementoCarboidrato);
-        carboidratoTxt = selecao.complementoCarboidrato
-          ? `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`
-          : `${selecao.carboidrato} (complete a porção)`;
+      } else if (selecao.carboidrato === 'Feijão') {
+        const tipoTxt = selecao.feijaoTipo ? `Feijão ${selecao.feijaoTipo.toLowerCase()}` : 'Feijão (escolha o tipo)';
+        carboidratoCompleta = Boolean(selecao.feijaoTipo && selecao.complementoCarboidrato);
+        carboidratoTxt = selecao.complementoCarboidrato ? `${tipoTxt} + ${selecao.complementoCarboidrato}` : `${tipoTxt}, complete a porção`;
       }
 
       let legumeTxt = selecao.legume || '—';
@@ -207,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pesoProteinaEl.textContent = `· ${t.proteina}g`;
         pesoLegumeEl.textContent = `· ${t.legume}g`;
         detalheTamanhoEl.textContent = `Tamanho ${selecao.tamanho}: proteína ${t.proteina}g · carboidrato ${t.carboidrato}g · legumes ${t.legume}g`;
-        if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
+        if (selecao.carboidrato === 'Feijão') {
           const { feijao, complemento } = pesosFeijao(selecao.tamanho);
           pesoCarboidratoEl.textContent = `· ${feijao}g + ${complemento}g`;
           pesoComplementoFeijaoEl.textContent = `${complemento}g`;
@@ -230,9 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
       blocoProteinaDescricao.textContent = descricaoProteina || '';
       blocoProteinaDescricao.classList.toggle('d-none', !descricaoProteina);
       blocoMolho.classList.toggle('d-none', selecao.carboidrato !== 'Macarrão');
+      blocoArrozTipo.classList.toggle('d-none', selecao.carboidrato !== 'Arroz');
       blocoPureBatataTipo.classList.toggle('d-none', selecao.carboidrato !== 'Purê de batata');
       blocoEscondidinhoProteina.classList.toggle('d-none', selecao.carboidrato !== 'Escondidinho');
-      blocoFeijaoComplemento.classList.toggle('d-none', !(selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)));
+      blocoFeijaoTipo.classList.toggle('d-none', selecao.carboidrato !== 'Feijão');
+      blocoFeijaoComplemento.classList.toggle('d-none', selecao.carboidrato !== 'Feijão');
       blocoLegumePreparo.classList.toggle('d-none', !selecao.legume);
 
       const { proteinaTxt, proteinaCompleta, carboidratoTxt, carboidratoCompleta, legumeTxt, legumeCompleto } = composicaoAtual();
