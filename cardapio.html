@@ -96,6 +96,29 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frango desfiado">Frango desfiado</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Almôndegas">Almôndegas</button>
             </div>
+
+            <!-- Descrição da proteína escolhida (só pras que não têm sub-preparo) -->
+            <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(244,236,221,0.6);"></p>
+
+            <!-- Preparo do ovo (aparece só se Ovo for escolhido) -->
+            <div id="blocoOvoPreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Como você quer o ovo?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="ovoPreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frito (gema mole)">Frito (gema mole)</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frito (gema dura)">Frito (gema dura)</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mexido">Mexido</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Omelete fit">Omelete fit</button>
+              </div>
+            </div>
+
+            <!-- Preparo do filé de frango (aparece só se Filé de frango for escolhido) -->
+            <div id="blocoFrangoPreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Como prefere o filé?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="frangoPreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Grelhado">Grelhado</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frito">Frito</button>
+              </div>
+            </div>
           </div>
 
           <!-- Carboidrato -->
@@ -110,7 +133,6 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Macarrão">Macarrão</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata">Purê de batata</button>
-              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata doce">Purê de batata doce</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Escondidinho">Escondidinho</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Feijão carioca" data-feijao="true">Feijão carioca</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Feijão preto" data-feijao="true">Feijão preto</button>
@@ -123,6 +145,44 @@
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Vermelho">Vermelho</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Branco">Branco</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Pesto">Pesto</button>
+              </div>
+            </div>
+
+            <!-- Tipo do purê de batata (aparece só se Purê de batata for escolhido) -->
+            <div id="blocoPureBatataTipo" class="mt-4 d-none">
+              <label class="form-label d-block">Purê de qual batata?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="pureBatataTipo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata inglesa">Batata inglesa</button>
+              </div>
+            </div>
+
+            <!-- Escondidinho: de qual proteína (aparece só se Escondidinho for escolhido) -->
+            <div id="blocoEscondidinhoProteina" class="mt-4 d-none">
+              <label class="form-label d-block">Escondidinho de quê?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="escondidinhoProteina">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne moída">Carne moída</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne de jaca desfiada">Carne de jaca desfiada</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frango desfiado">Frango desfiado</button>
+              </div>
+            </div>
+
+            <!-- Preparo do arroz (aparece só se algum Arroz for escolhido) -->
+            <div id="blocoArrozPreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Preparo do arroz</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="arrozPreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Simples (soltinho)">Simples (soltinho)</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Refogado (alho e cebola)">Refogado (alho e cebola)</button>
+              </div>
+            </div>
+
+            <!-- Preparo do feijão (aparece só se algum Feijão for escolhido) -->
+            <div id="blocoFeijaoPreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Preparo do feijão</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="feijaoPreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Simples (sem carne)">Simples (sem carne)</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Com bacon">Com bacon</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Com calabresa">Com calabresa</button>
               </div>
             </div>
 
@@ -150,8 +210,8 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Abobrinha">Abobrinha</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Cabotiá">Cabotiá</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Cenoura">Cenoura</button>
-              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce cozida">Batata doce cozida</button>
-              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata inglesa cozida">Batata inglesa cozida</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata inglesa">Batata inglesa</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Berinjela">Berinjela</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Quiabo">Quiabo</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
@@ -159,6 +219,17 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Couve-flor">Couve-flor</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Espinafre">Espinafre</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Repolho">Repolho</button>
+            </div>
+
+            <!-- Preparo do legume (aparece assim que um legume for escolhido) -->
+            <div id="blocoLegumePreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Como prefere o preparo?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="legumePreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Cozido no vapor">Cozido no vapor</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Grelhado">Grelhado</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Salteado">Salteado</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Assado">Assado</button>
+              </div>
             </div>
           </div>
 

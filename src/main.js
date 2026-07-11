@@ -27,6 +27,7 @@ export const TAMANHOS_MARMITA = {
 };
 
 const FEIJOES = ['Feijão carioca', 'Feijão preto'];
+const ARROZES = ['Arroz branco', 'Arroz integral', 'Arroz 7 grãos'];
 
 const formatarMoeda = (valor) => `R$ ${valor.toFixed(2).replace('.', ',')}`;
 
@@ -98,21 +99,46 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- Cardápio: montador de marmita (tamanho + ingredientes) ----------
   const grupoTamanho = document.getElementById('grupoTamanho');
   if (grupoTamanho) {
-    const selecao = {
-      tamanho: null,
-      proteina: null,
-      carboidrato: null,
-      molho: null,
-      complementoCarboidrato: null,
-      legume: null,
+    const GRUPOS_INGREDIENTE = [
+      'proteina', 'ovoPreparo', 'frangoPreparo',
+      'carboidrato', 'molho', 'pureBatataTipo', 'escondidinhoProteina', 'arrozPreparo', 'feijaoPreparo', 'complementoCarboidrato',
+      'legume', 'legumePreparo',
+    ];
+
+    // Sub-preparos que dependem de um ingrediente "pai" e precisam ser limpos quando ele muda.
+    const DEPENDENTES = {
+      proteina: ['ovoPreparo', 'frangoPreparo'],
+      carboidrato: ['molho', 'pureBatataTipo', 'escondidinhoProteina', 'arrozPreparo', 'feijaoPreparo', 'complementoCarboidrato'],
     };
+
+    // Descrição rápida das proteínas que não têm sub-preparo — só aparece quando a pessoa escolhe aquele chip.
+    const DESCRICOES_PROTEINA = {
+      'Carne de panela': 'Cozida bem devagar até desmanchar, com batata e cenoura no caldo.',
+      'Carne moída': 'Refogada com temperos.',
+      'Frango assado': 'Assado no forno com ervas.',
+      'Bife (iscas/tiras)': 'Grelhado na chapa, em tiras.',
+      'Peixe (filé)': 'Grelhado, sem espinhas.',
+      'Frango desfiado': 'Cozido e desfiado, temperado.',
+      'Almôndegas': 'Ao molho vermelho, feitas com carne moída.',
+    };
+
+    const selecao = Object.fromEntries(GRUPOS_INGREDIENTE.map((g) => [g, null]));
+    selecao.tamanho = null;
 
     const pesoProteinaEl = document.getElementById('pesoProteina');
     const pesoCarboidratoEl = document.getElementById('pesoCarboidrato');
     const pesoLegumeEl = document.getElementById('pesoLegume');
     const pesoComplementoFeijaoEl = document.getElementById('pesoComplementoFeijao');
+    const blocoOvoPreparo = document.getElementById('blocoOvoPreparo');
+    const blocoFrangoPreparo = document.getElementById('blocoFrangoPreparo');
+    const blocoProteinaDescricao = document.getElementById('blocoProteinaDescricao');
     const blocoMolho = document.getElementById('blocoMolho');
+    const blocoPureBatataTipo = document.getElementById('blocoPureBatataTipo');
+    const blocoEscondidinhoProteina = document.getElementById('blocoEscondidinhoProteina');
+    const blocoArrozPreparo = document.getElementById('blocoArrozPreparo');
+    const blocoFeijaoPreparo = document.getElementById('blocoFeijaoPreparo');
     const blocoFeijaoComplemento = document.getElementById('blocoFeijaoComplemento');
+    const blocoLegumePreparo = document.getElementById('blocoLegumePreparo');
     const btnFinalizar = document.getElementById('btnFinalizarMontagem');
     const detalheTamanhoEl = document.getElementById('detalheTamanhoSelecionado');
     const alertaCarrinho = document.getElementById('alerta-carrinho');
@@ -129,6 +155,49 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll(`[data-grupo-ingrediente="${grupo}"] .chip-ingrediente`).forEach((chip) => {
         chip.classList.toggle('active', chip.dataset.valor === valor);
       });
+    };
+
+    // Monta os textos finais (usados no resumo ao vivo e na descrição enviada pro carrinho)
+    // e indica se cada grupo já está completo, considerando os sub-preparos obrigatórios.
+    const composicaoAtual = () => {
+      let proteinaTxt = selecao.proteina || '—';
+      let proteinaCompleta = Boolean(selecao.proteina);
+      if (selecao.proteina === 'Ovo') {
+        proteinaCompleta = Boolean(selecao.ovoPreparo);
+        proteinaTxt = selecao.ovoPreparo ? `Ovo — ${selecao.ovoPreparo}` : 'Ovo (escolha o preparo)';
+      } else if (selecao.proteina === 'Filé de frango') {
+        proteinaCompleta = Boolean(selecao.frangoPreparo);
+        proteinaTxt = selecao.frangoPreparo ? `Filé de frango — ${selecao.frangoPreparo}` : 'Filé de frango (escolha o preparo)';
+      }
+
+      let carboidratoTxt = selecao.carboidrato || '—';
+      let carboidratoCompleta = Boolean(selecao.carboidrato);
+      if (selecao.carboidrato === 'Macarrão') {
+        carboidratoCompleta = Boolean(selecao.molho);
+        carboidratoTxt = selecao.molho ? `Macarrão (molho ${selecao.molho})` : 'Macarrão (escolha o molho)';
+      } else if (selecao.carboidrato === 'Purê de batata') {
+        carboidratoCompleta = Boolean(selecao.pureBatataTipo);
+        carboidratoTxt = selecao.pureBatataTipo ? `Purê de ${selecao.pureBatataTipo.toLowerCase()}` : 'Purê de batata (escolha o tipo)';
+      } else if (selecao.carboidrato === 'Escondidinho') {
+        carboidratoCompleta = Boolean(selecao.escondidinhoProteina);
+        carboidratoTxt = selecao.escondidinhoProteina ? `Escondidinho de ${selecao.escondidinhoProteina}` : 'Escondidinho (escolha a proteína)';
+      } else if (selecao.carboidrato && ARROZES.includes(selecao.carboidrato)) {
+        carboidratoCompleta = Boolean(selecao.arrozPreparo);
+        carboidratoTxt = selecao.arrozPreparo ? `${selecao.carboidrato} — ${selecao.arrozPreparo}` : `${selecao.carboidrato} (escolha o preparo)`;
+      } else if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
+        carboidratoCompleta = Boolean(selecao.feijaoPreparo && selecao.complementoCarboidrato);
+        const preparoTxt = selecao.feijaoPreparo ? `${selecao.carboidrato} — ${selecao.feijaoPreparo}` : `${selecao.carboidrato} (escolha o preparo)`;
+        carboidratoTxt = selecao.complementoCarboidrato ? `${preparoTxt} + ${selecao.complementoCarboidrato}` : `${preparoTxt}, complete a porção`;
+      }
+
+      let legumeTxt = selecao.legume || '—';
+      let legumeCompleto = Boolean(selecao.legume);
+      if (selecao.legume) {
+        legumeCompleto = Boolean(selecao.legumePreparo);
+        legumeTxt = selecao.legumePreparo ? `${selecao.legume} — ${selecao.legumePreparo}` : `${selecao.legume} (escolha o preparo)`;
+      }
+
+      return { proteinaTxt, proteinaCompleta, carboidratoTxt, carboidratoCompleta, legumeTxt, legumeCompleto };
     };
 
     const atualizarMontador = () => {
@@ -151,44 +220,43 @@ document.addEventListener('DOMContentLoaded', () => {
         detalheTamanhoEl.textContent = '';
       }
 
+      blocoOvoPreparo.classList.toggle('d-none', selecao.proteina !== 'Ovo');
+      blocoFrangoPreparo.classList.toggle('d-none', selecao.proteina !== 'Filé de frango');
+      const descricaoProteina = DESCRICOES_PROTEINA[selecao.proteina];
+      blocoProteinaDescricao.textContent = descricaoProteina || '';
+      blocoProteinaDescricao.classList.toggle('d-none', !descricaoProteina);
       blocoMolho.classList.toggle('d-none', selecao.carboidrato !== 'Macarrão');
-      blocoFeijaoComplemento.classList.toggle('d-none', !(selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)));
+      blocoPureBatataTipo.classList.toggle('d-none', selecao.carboidrato !== 'Purê de batata');
+      blocoEscondidinhoProteina.classList.toggle('d-none', selecao.carboidrato !== 'Escondidinho');
+      blocoArrozPreparo.classList.toggle('d-none', !(selecao.carboidrato && ARROZES.includes(selecao.carboidrato)));
+      const ehFeijao = Boolean(selecao.carboidrato && FEIJOES.includes(selecao.carboidrato));
+      blocoFeijaoPreparo.classList.toggle('d-none', !ehFeijao);
+      blocoFeijaoComplemento.classList.toggle('d-none', !ehFeijao);
+      blocoLegumePreparo.classList.toggle('d-none', !selecao.legume);
+
+      const { proteinaTxt, proteinaCompleta, carboidratoTxt, carboidratoCompleta, legumeTxt, legumeCompleto } = composicaoAtual();
 
       document.getElementById('resumoTamanhoTxt').textContent = selecao.tamanho || '—';
-      document.getElementById('resumoProteinaTxt').textContent = selecao.proteina || '—';
-
-      let carboidratoTxt = '—';
-      if (selecao.carboidrato === 'Macarrão') {
-        carboidratoTxt = selecao.molho ? `Macarrão (molho ${selecao.molho})` : 'Macarrão (escolha o molho)';
-      } else if (selecao.carboidrato && FEIJOES.includes(selecao.carboidrato)) {
-        carboidratoTxt = selecao.complementoCarboidrato
-          ? `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`
-          : `${selecao.carboidrato} (complete a porção)`;
-      } else if (selecao.carboidrato) {
-        carboidratoTxt = selecao.carboidrato;
-      }
+      document.getElementById('resumoProteinaTxt').textContent = proteinaTxt;
       document.getElementById('resumoCarboidratoTxt').textContent = carboidratoTxt;
-      document.getElementById('resumoLegumeTxt').textContent = selecao.legume || '—';
+      document.getElementById('resumoLegumeTxt').textContent = legumeTxt;
 
       const preco = selecao.tamanho ? TAMANHOS_MARMITA[selecao.tamanho].preco : 0;
       document.getElementById('resumoPrecoTxt').textContent = formatarMoeda(preco);
 
-      const carboidratoCompleto = selecao.carboidrato
-        && (selecao.carboidrato !== 'Macarrão' || selecao.molho)
-        && (!FEIJOES.includes(selecao.carboidrato) || selecao.complementoCarboidrato);
-
-      btnFinalizar.disabled = !(selecao.tamanho && selecao.proteina && carboidratoCompleto && selecao.legume);
+      btnFinalizar.disabled = !(
+        selecao.tamanho
+        && selecao.proteina && proteinaCompleta
+        && selecao.carboidrato && carboidratoCompleta
+        && selecao.legume && legumeCompleto
+      );
     };
 
     const limparSelecao = () => {
+      GRUPOS_INGREDIENTE.forEach((g) => { selecao[g] = null; });
       selecao.tamanho = null;
-      selecao.proteina = null;
-      selecao.carboidrato = null;
-      selecao.molho = null;
-      selecao.complementoCarboidrato = null;
-      selecao.legume = null;
       document.querySelectorAll('[data-tamanho-marmita]').forEach((c) => c.classList.remove('active'));
-      ['proteina', 'carboidrato', 'molho', 'complementoCarboidrato', 'legume'].forEach((g) => selecionarChip(g, null));
+      GRUPOS_INGREDIENTE.forEach((g) => selecionarChip(g, null));
       atualizarMontador();
     };
 
@@ -201,15 +269,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    ['proteina', 'carboidrato', 'molho', 'complementoCarboidrato', 'legume'].forEach((grupo) => {
+    GRUPOS_INGREDIENTE.forEach((grupo) => {
       document.querySelectorAll(`[data-grupo-ingrediente="${grupo}"] .chip-ingrediente`).forEach((chip) => {
         chip.addEventListener('click', () => {
           const valor = chip.dataset.valor;
-          if (grupo === 'carboidrato' && selecao.carboidrato !== valor) {
-            selecao.molho = null;
-            selecao.complementoCarboidrato = null;
-            selecionarChip('molho', null);
-            selecionarChip('complementoCarboidrato', null);
+          const dependentes = DEPENDENTES[grupo];
+          if (dependentes && selecao[grupo] !== valor) {
+            dependentes.forEach((dep) => {
+              selecao[dep] = null;
+              selecionarChip(dep, null);
+            });
           }
           selecao[grupo] = valor;
           selecionarChip(grupo, valor);
@@ -221,15 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnFinalizar.addEventListener('click', () => {
       if (btnFinalizar.disabled) return;
       const tamanho = selecao.tamanho;
-
-      let carboidratoDescricao = selecao.carboidrato;
-      if (selecao.carboidrato === 'Macarrão') {
-        carboidratoDescricao = `Macarrão (molho ${selecao.molho})`;
-      } else if (FEIJOES.includes(selecao.carboidrato)) {
-        carboidratoDescricao = `${selecao.carboidrato} + ${selecao.complementoCarboidrato}`;
-      }
-
-      const descricao = `${selecao.proteina}, ${carboidratoDescricao}, ${selecao.legume}`;
+      const { proteinaTxt, carboidratoTxt, legumeTxt } = composicaoAtual();
+      const descricao = `${proteinaTxt}, ${carboidratoTxt}, ${legumeTxt}`;
       const preco = TAMANHOS_MARMITA[tamanho].preco;
 
       adicionarAoCarrinho({ tamanho, descricao, preco });
