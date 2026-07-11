@@ -148,7 +148,6 @@
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="carboidrato">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz">Arroz</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
-              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Macarrão">Macarrão</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata">Purê de batata</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Escondidinho">Escondidinho</button>
@@ -210,6 +209,25 @@
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz">Arroz</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata">Purê de batata</button>
+              </div>
+
+              <!-- Tipo do arroz complemento (aparece só se Arroz for escolhido aqui) -->
+              <div id="blocoComplementoArrozTipo" class="mt-3 d-none">
+                <label class="form-label d-block">Qual arroz?</label>
+                <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="complementoArrozTipo">
+                  <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Branco">Branco</button>
+                  <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Integral">Integral</button>
+                  <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="7 grãos">7 grãos</button>
+                </div>
+              </div>
+
+              <!-- Tipo do purê complemento (aparece só se Purê de batata for escolhido aqui) -->
+              <div id="blocoComplementoPureBatataTipo" class="mt-3 d-none">
+                <label class="form-label d-block">Purê de qual batata?</label>
+                <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="complementoPureBatataTipo">
+                  <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
+                  <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata inglesa">Batata inglesa</button>
+                </div>
               </div>
             </div>
           </div>

@@ -98,14 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (grupoTamanho) {
     const GRUPOS_INGREDIENTE = [
       'proteina', 'ovoPreparo', 'frangoPreparo', 'carneMoidaPreparo', 'peixePreparo',
-      'carboidrato', 'molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato',
+      'carboidrato', 'molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina',
+      'complementoCarboidrato', 'complementoArrozTipo', 'complementoPureBatataTipo',
       'legume', 'legumePreparo',
     ];
 
     // Sub-preparos que dependem de um ingrediente "pai" e precisam ser limpos quando ele muda.
     const DEPENDENTES = {
       proteina: ['ovoPreparo', 'frangoPreparo', 'carneMoidaPreparo', 'peixePreparo'],
-      carboidrato: ['molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato'],
+      carboidrato: ['molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato', 'complementoArrozTipo', 'complementoPureBatataTipo'],
+      complementoCarboidrato: ['complementoArrozTipo', 'complementoPureBatataTipo'],
     };
 
     // Descrição rápida das proteínas que não têm sub-preparo — só aparece quando a pessoa escolhe aquele chip.
@@ -142,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const blocoPureBatataTipo = document.getElementById('blocoPureBatataTipo');
     const blocoEscondidinhoProteina = document.getElementById('blocoEscondidinhoProteina');
     const blocoFeijaoComplemento = document.getElementById('blocoFeijaoComplemento');
+    const blocoComplementoArrozTipo = document.getElementById('blocoComplementoArrozTipo');
+    const blocoComplementoPureBatataTipo = document.getElementById('blocoComplementoPureBatataTipo');
     const blocoLegumePreparo = document.getElementById('blocoLegumePreparo');
     const btnFinalizar = document.getElementById('btnFinalizarMontagem');
     const detalheTamanhoEl = document.getElementById('detalheTamanhoSelecionado');
@@ -196,8 +200,19 @@ document.addEventListener('DOMContentLoaded', () => {
         carboidratoTxt = selecao.escondidinhoProteina ? `Escondidinho de ${selecao.escondidinhoProteina}` : 'Escondidinho (escolha a proteína)';
       } else if (selecao.carboidrato === 'Feijão') {
         const tipoTxt = selecao.feijaoTipo ? `Feijão ${selecao.feijaoTipo.toLowerCase()}` : 'Feijão (escolha o tipo)';
-        carboidratoCompleta = Boolean(selecao.feijaoTipo && selecao.complementoCarboidrato);
-        carboidratoTxt = selecao.complementoCarboidrato ? `${tipoTxt} + ${selecao.complementoCarboidrato}` : `${tipoTxt}, complete a porção`;
+
+        let complementoTxt = selecao.complementoCarboidrato;
+        let complementoCompleto = Boolean(selecao.complementoCarboidrato);
+        if (selecao.complementoCarboidrato === 'Arroz') {
+          complementoCompleto = Boolean(selecao.complementoArrozTipo);
+          complementoTxt = selecao.complementoArrozTipo ? `Arroz ${selecao.complementoArrozTipo.toLowerCase()}` : 'Arroz (escolha o tipo)';
+        } else if (selecao.complementoCarboidrato === 'Purê de batata') {
+          complementoCompleto = Boolean(selecao.complementoPureBatataTipo);
+          complementoTxt = selecao.complementoPureBatataTipo ? `Purê de ${selecao.complementoPureBatataTipo.toLowerCase()}` : 'Purê de batata (escolha o tipo)';
+        }
+
+        carboidratoCompleta = Boolean(selecao.feijaoTipo && selecao.complementoCarboidrato && complementoCompleto);
+        carboidratoTxt = selecao.complementoCarboidrato ? `${tipoTxt} + ${complementoTxt}` : `${tipoTxt}, complete a porção`;
       }
 
       let legumeTxt = selecao.legume || '—';
@@ -246,6 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
       blocoEscondidinhoProteina.classList.toggle('d-none', selecao.carboidrato !== 'Escondidinho');
       blocoFeijaoTipo.classList.toggle('d-none', selecao.carboidrato !== 'Feijão');
       blocoFeijaoComplemento.classList.toggle('d-none', selecao.carboidrato !== 'Feijão');
+      blocoComplementoArrozTipo.classList.toggle('d-none', selecao.complementoCarboidrato !== 'Arroz');
+      blocoComplementoPureBatataTipo.classList.toggle('d-none', selecao.complementoCarboidrato !== 'Purê de batata');
       blocoLegumePreparo.classList.toggle('d-none', !selecao.legume);
 
       const { proteinaTxt, proteinaCompleta, carboidratoTxt, carboidratoCompleta, legumeTxt, legumeCompleto } = composicaoAtual();
