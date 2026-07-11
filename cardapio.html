@@ -95,10 +95,29 @@
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Peixe (filé)">Peixe (filé)</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frango desfiado">Frango desfiado</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Almôndegas">Almôndegas</button>
+              <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne de jaca">Carne de jaca</button>
             </div>
 
             <!-- Descrição da proteína escolhida (só pras que não têm sub-preparo) -->
             <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(244,236,221,0.6);"></p>
+
+            <!-- Preparo da carne moída (aparece só se Carne moída for escolhida) -->
+            <div id="blocoCarneMoidaPreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Como prefere a carne moída?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="carneMoidaPreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Refogada">Refogada</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Ao molho">Ao molho</button>
+              </div>
+            </div>
+
+            <!-- Preparo do peixe (aparece só se Peixe (filé) for escolhido) -->
+            <div id="blocoPeixePreparo" class="mt-4 d-none">
+              <label class="form-label d-block">Como prefere o peixe?</label>
+              <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="peixePreparo">
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Grelhado">Grelhado</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Frito">Frito</button>
+              </div>
+            </div>
 
             <!-- Preparo do ovo (aparece só se Ovo for escolhido) -->
             <div id="blocoOvoPreparo" class="mt-4 d-none">
@@ -188,13 +207,9 @@
             <div id="blocoFeijaoComplemento" class="mt-4 d-none">
               <label class="form-label d-block">Complete com <span id="pesoComplementoFeijao"></span> de:</label>
               <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="complementoCarboidrato">
-                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz branco">Arroz branco</button>
-                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz integral">Arroz integral</button>
-                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz 7 grãos">Arroz 7 grãos</button>
+                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz">Arroz</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
-                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Batata doce">Batata doce</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata">Purê de batata</button>
-                <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Purê de batata doce">Purê de batata doce</button>
               </div>
             </div>
           </div>

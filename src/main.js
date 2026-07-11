@@ -97,26 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const grupoTamanho = document.getElementById('grupoTamanho');
   if (grupoTamanho) {
     const GRUPOS_INGREDIENTE = [
-      'proteina', 'ovoPreparo', 'frangoPreparo',
+      'proteina', 'ovoPreparo', 'frangoPreparo', 'carneMoidaPreparo', 'peixePreparo',
       'carboidrato', 'molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato',
       'legume', 'legumePreparo',
     ];
 
     // Sub-preparos que dependem de um ingrediente "pai" e precisam ser limpos quando ele muda.
     const DEPENDENTES = {
-      proteina: ['ovoPreparo', 'frangoPreparo'],
+      proteina: ['ovoPreparo', 'frangoPreparo', 'carneMoidaPreparo', 'peixePreparo'],
       carboidrato: ['molho', 'arrozTipo', 'feijaoTipo', 'pureBatataTipo', 'escondidinhoProteina', 'complementoCarboidrato'],
     };
 
     // Descrição rápida das proteínas que não têm sub-preparo — só aparece quando a pessoa escolhe aquele chip.
     const DESCRICOES_PROTEINA = {
       'Carne de panela': 'Cozida bem devagar até desmanchar, com batata e cenoura no caldo.',
-      'Carne moída': 'Refogada com temperos.',
       'Frango assado': 'Assado no forno com ervas.',
       'Bife (iscas/tiras)': 'Grelhado na chapa, em tiras.',
-      'Peixe (filé)': 'Grelhado, sem espinhas.',
       'Frango desfiado': 'Cozido e desfiado, temperado.',
       'Almôndegas': 'Ao molho vermelho, feitas com carne moída.',
+      'Carne de jaca': 'Desfiada e temperada, substituto vegano de carne.',
     };
 
     // Descrição rápida das opções de preparo do ovo que não são autoexplicativas.
@@ -134,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const blocoOvoPreparo = document.getElementById('blocoOvoPreparo');
     const blocoOvoPreparoDescricao = document.getElementById('blocoOvoPreparoDescricao');
     const blocoFrangoPreparo = document.getElementById('blocoFrangoPreparo');
+    const blocoCarneMoidaPreparo = document.getElementById('blocoCarneMoidaPreparo');
+    const blocoPeixePreparo = document.getElementById('blocoPeixePreparo');
     const blocoProteinaDescricao = document.getElementById('blocoProteinaDescricao');
     const blocoMolho = document.getElementById('blocoMolho');
     const blocoArrozTipo = document.getElementById('blocoArrozTipo');
@@ -171,6 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (selecao.proteina === 'Filé de frango') {
         proteinaCompleta = Boolean(selecao.frangoPreparo);
         proteinaTxt = selecao.frangoPreparo ? `Filé de frango — ${selecao.frangoPreparo}` : 'Filé de frango (escolha o preparo)';
+      } else if (selecao.proteina === 'Carne moída') {
+        proteinaCompleta = Boolean(selecao.carneMoidaPreparo);
+        proteinaTxt = selecao.carneMoidaPreparo ? `Carne moída — ${selecao.carneMoidaPreparo}` : 'Carne moída (escolha o preparo)';
+      } else if (selecao.proteina === 'Peixe (filé)') {
+        proteinaCompleta = Boolean(selecao.peixePreparo);
+        proteinaTxt = selecao.peixePreparo ? `Peixe (filé) — ${selecao.peixePreparo}` : 'Peixe (filé) (escolha o preparo)';
       }
 
       let carboidratoTxt = selecao.carboidrato || '—';
@@ -228,6 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
       blocoOvoPreparoDescricao.textContent = descricaoOvoPreparo || '';
       blocoOvoPreparoDescricao.classList.toggle('d-none', !descricaoOvoPreparo);
       blocoFrangoPreparo.classList.toggle('d-none', selecao.proteina !== 'Filé de frango');
+      blocoCarneMoidaPreparo.classList.toggle('d-none', selecao.proteina !== 'Carne moída');
+      blocoPeixePreparo.classList.toggle('d-none', selecao.proteina !== 'Peixe (filé)');
       const descricaoProteina = DESCRICOES_PROTEINA[selecao.proteina];
       blocoProteinaDescricao.textContent = descricaoProteina || '';
       blocoProteinaDescricao.classList.toggle('d-none', !descricaoProteina);
