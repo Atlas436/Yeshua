@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const renderizarItens = () => {
         itensListaEl.innerHTML = itensCarrinho.map((item) => `
-          <div class="d-flex justify-content-between align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(201,162,39,0.15);">
+          <div class="d-flex justify-content-between align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(232,115,15,0.15);">
             <div style="max-width: 70%;">
               <div class="d-flex align-items-center gap-2 mb-1">
                 <span class="badge badge-categoria rounded-pill">${item.tamanho}</span>
