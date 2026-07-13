@@ -36,6 +36,7 @@ html {
   scroll-padding-top: 96px;
   scroll-behavior: smooth;
   background-color: var(--fundo);
+  overflow-x: hidden;
 }
 
 /* ---------- Base ---------- */
@@ -44,6 +45,8 @@ body {
   color: var(--preto);
   font-family: var(--fonte-corpo);
   font-weight: 300;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ---------- Tela de carregamento ---------- */
@@ -105,14 +108,15 @@ a:hover {
 
 /* ---------- Navbar ---------- */
 .navbar-yeshua {
-  background-color: rgba(13, 13, 13, 0.92);
+  background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(232, 115, 15, 0.25);
+  border-bottom: 1px solid rgba(13, 13, 13, 0.15);
+  box-shadow: 0 0.25rem 1.25rem rgba(232, 115, 15, 0.3);
 }
 .navbar-yeshua .navbar-brand {
   font-family: "Playfair Display", "Georgia", serif;
   font-size: 1.5rem;
-  color: var(--dourado-claro);
+  color: var(--preto);
   letter-spacing: 0.05em;
 }
 .marca-titulo {
@@ -120,31 +124,28 @@ a:hover {
   font-weight: 800;
   font-size: 1.4rem;
   line-height: 1;
-  color: var(--dourado-claro);
-  text-shadow: 0 0 0.75rem rgba(232, 115, 15, 0.4);
+  color: var(--preto);
 }
 .marca-tagline {
   font-family: var(--fonte-script);
   font-weight: 600;
   font-size: 1.3rem;
   line-height: 1;
-  color: var(--dourado);
+  color: var(--preto-suave);
   margin-top: -0.15rem;
 }
 .navbar-yeshua .nav-link {
-  color: var(--bege);
-  font-weight: 500;
+  color: rgba(13, 13, 13, 0.8);
+  font-weight: 600;
   margin: 0 0.35rem;
 }
 .navbar-yeshua .nav-link:hover,
 .navbar-yeshua .nav-link.active {
-  color: var(--dourado);
+  color: var(--preto);
 }
-.logo-nav {
-  width: 42px;
-  height: 42px;
+.navbar-yeshua .navbar-toggler {
+  border-color: rgba(13, 13, 13, 0.3);
 }
-
 /* ---------- Botões ---------- */
 .btn-dourado {
   position: relative;
@@ -201,6 +202,20 @@ a:hover {
   color: var(--branco);
   filter: brightness(1.08);
 }
+.btn-preto {
+  background: var(--preto);
+  color: var(--fundo-cartao);
+  border: none;
+  font-weight: 600;
+  border-radius: 50rem;
+  padding: 0.65rem 1.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-preto:hover {
+  color: var(--dourado-claro);
+  transform: translateY(-2px);
+  box-shadow: 0 0.75rem 2rem rgba(13, 13, 13, 0.35);
+}
 .btn-whatsapp {
   background: #25d366;
   color: #fff;
@@ -231,18 +246,6 @@ a:hover {
   inset: 0;
   background-image: repeating-linear-gradient(45deg, rgba(13,13,13,0.04) 0 2px, transparent 2px 40px);
   pointer-events: none;
-}
-.hero-logo {
-  width: min(320px, 70vw);
-  filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.5)) drop-shadow(0 0 3rem rgba(232, 115, 15, 0.45));
-  animation: brilho-logo 3.5s ease-in-out infinite;
-}
-@keyframes brilho-logo {
-  0%, 100% { filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.5)) drop-shadow(0 0 3rem rgba(232, 115, 15, 0.45)); }
-  50% { filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.5)) drop-shadow(0 0 4.5rem rgba(255, 184, 77, 0.65)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-logo { animation: none; }
 }
 .hero-yeshua .kicker {
   letter-spacing: 0.25em;
@@ -372,12 +375,13 @@ section { padding: 5rem 0; }
 
 /* ---------- Footer ---------- */
 footer.footer-yeshua {
-  background: var(--preto-suave);
-  border-top: 1px solid rgba(232, 115, 15, 0.2);
-  color: rgba(244, 236, 221, 0.75);
+  background: linear-gradient(180deg, var(--dourado-escuro), var(--terracota-escura));
+  border-top: 1px solid rgba(13, 13, 13, 0.15);
+  color: rgba(255, 250, 240, 0.85);
 }
-footer.footer-yeshua a { color: rgba(244, 236, 221, 0.75); text-decoration: none; }
-footer.footer-yeshua a:hover { color: var(--dourado-claro); }
+footer.footer-yeshua a { color: rgba(255, 250, 240, 0.85); text-decoration: none; }
+footer.footer-yeshua a:hover { color: var(--preto); }
+footer.footer-yeshua li { overflow-wrap: anywhere; }
 .icone-social {
   width: 38px;
   height: 38px;
