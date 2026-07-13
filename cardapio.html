@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -50,7 +50,7 @@
     <div class="container text-center">
       <p class="kicker mb-3">Cardápio fixo</p>
       <h1 class="fonte-titulo mb-3">Monte a sua <span class="text-dourado">marmita</span></h1>
-      <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(244,236,221,0.85);">
+      <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(13,13,13,0.85);">
         Escolha o tamanho e combine 1 proteína, 1 carboidrato e 1 legume das nossas opções fixas. Simples assim.
       </p>
     </div>
@@ -69,7 +69,7 @@
         <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="M">M · 450g · R$ 19,00</button>
         <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="G">G · 600g · R$ 25,00</button>
       </div>
-      <p class="text-center small mt-3 mb-0" id="detalheTamanhoSelecionado" style="color: rgba(244,236,221,0.6); min-height: 1.2em;"></p>
+      <p class="text-center small mt-3 mb-0" id="detalheTamanhoSelecionado" style="color: rgba(13,13,13,0.6); min-height: 1.2em;"></p>
     </div>
   </section>
 
@@ -88,7 +88,7 @@
           <!-- Proteína -->
           <div class="card-yeshua p-4 p-md-5 mb-4">
             <h5 class="fonte-titulo mb-1">Proteína <span class="text-dourado-claro small" id="pesoProteina"></span></h5>
-            <p class="small mb-3" style="color: rgba(244,236,221,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="proteina">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne de panela">Carne de panela</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne moída">Carne moída</button>
@@ -103,7 +103,7 @@
             </div>
 
             <!-- Descrição da proteína escolhida (só pras que não têm sub-preparo) -->
-            <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(244,236,221,0.6);"></p>
+            <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(13,13,13,0.6);"></p>
 
             <!-- Preparo da carne moída (aparece só se Carne moída for escolhida) -->
             <div id="blocoCarneMoidaPreparo" class="mt-4 d-none">
@@ -132,7 +132,7 @@
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mexido">Mexido</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Omelete fit">Omelete fit</button>
               </div>
-              <p id="blocoOvoPreparoDescricao" class="small mt-2 mb-0 d-none" style="color: rgba(244,236,221,0.6);"></p>
+              <p id="blocoOvoPreparoDescricao" class="small mt-2 mb-0 d-none" style="color: rgba(13,13,13,0.6);"></p>
             </div>
 
             <!-- Preparo do filé de frango (aparece só se Filé de frango for escolhido) -->
@@ -148,7 +148,7 @@
           <!-- Carboidrato -->
           <div class="card-yeshua p-4 p-md-5 mb-4">
             <h5 class="fonte-titulo mb-1">Carboidrato <span class="text-dourado-claro small" id="pesoCarboidrato"></span></h5>
-            <p class="small mb-3" style="color: rgba(244,236,221,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="carboidrato">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz">Arroz</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
@@ -239,7 +239,7 @@
           <!-- Legumes -->
           <div class="card-yeshua p-4 p-md-5">
             <h5 class="fonte-titulo mb-1">Legumes <span class="text-dourado-claro small" id="pesoLegume"></span></h5>
-            <p class="small mb-3" style="color: rgba(244,236,221,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="legume">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Brócolis">Brócolis</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Abobrinha">Abobrinha</button>
@@ -279,7 +279,7 @@
               Marmita adicionada ao carrinho! Monte outra ou <a href="carrinho.html" class="text-dourado-claro">veja o carrinho</a>.
             </div>
 
-            <ul class="list-unstyled small mb-4" style="color: rgba(244,236,221,0.85);">
+            <ul class="list-unstyled small mb-4" style="color: rgba(13,13,13,0.85);">
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Tamanho</span><strong id="resumoTamanhoTxt" class="text-end">—</strong></li>
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Proteína</span><strong id="resumoProteinaTxt" class="text-end">—</strong></li>
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Carboidrato</span><strong id="resumoCarboidratoTxt" class="text-end">—</strong></li>
@@ -291,7 +291,7 @@
               <span class="fonte-titulo fs-3 text-dourado" id="resumoPrecoTxt">R$ 0,00</span>
             </div>
             <button type="button" class="btn btn-dourado w-100" id="btnFinalizarMontagem" disabled>🛒 Adicionar ao carrinho</button>
-            <p class="small mt-3 mb-0 text-center" style="color: rgba(244,236,221,0.5);">Escolha o tamanho e todos os ingredientes para continuar.</p>
+            <p class="small mt-3 mb-0 text-center" style="color: rgba(13,13,13,0.5);">Escolha o tamanho e todos os ingredientes para continuar.</p>
           </div>
         </div>
       </div>
@@ -302,7 +302,7 @@
   <section class="bg-preto">
     <div class="container text-center">
       <h3 class="fonte-titulo mb-3">Precisa de algo fora do cardápio?</h3>
-      <p class="mb-4" style="color: rgba(244,236,221,0.8);">Grandes quantidades, restrições específicas ou combinações fora das opções acima: fale com a gente.</p>
+      <p class="mb-4" style="color: rgba(13,13,13,0.8);">Grandes quantidades, restrições específicas ou combinações fora das opções acima: fale com a gente.</p>
       <a href="personalizar.html" class="btn btn-dourado">Fazer pedido personalizado</a>
     </div>
   </section>

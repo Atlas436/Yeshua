@@ -1,12 +1,17 @@
 /* ============================================================
    YESHUA — Marmitas Fit Congeladas
-   Paleta: preto, laranja e amarelo (com um toque de terracota)
+   Paleta: laranja claro, amarelo, branco — com preto como acento
+   (na navbar, rodapé, textos e no leão) e um toque de terracota
    ============================================================ */
 
 :root {
   --preto: #0d0d0d;
   --preto-suave: #1a1712;
   --carvao: #24201a;
+
+  --fundo: #fbdca3;
+  --fundo-alt: #fff2df;
+  --fundo-cartao: #fffaf2;
 
   --dourado-escuro: #a8480f;
   --dourado: #e8730f;
@@ -30,13 +35,13 @@
 html {
   scroll-padding-top: 96px;
   scroll-behavior: smooth;
-  background-color: var(--preto);
+  background-color: var(--fundo);
 }
 
 /* ---------- Base ---------- */
 body {
-  background-color: var(--preto);
-  color: var(--bege);
+  background-color: var(--fundo);
+  color: var(--preto);
   font-family: var(--fonte-corpo);
   font-weight: 300;
 }
@@ -46,8 +51,8 @@ body {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background-color: var(--preto);
-  background-image: radial-gradient(rgba(232, 115, 15, 0.85) 1px, transparent 1.6px);
+  background-color: var(--fundo);
+  background-image: radial-gradient(rgba(13, 13, 13, 0.5) 1px, transparent 1.6px);
   background-size: 16px 16px;
   animation: loader-brilho 1.6s linear infinite;
   transition: opacity 0.5s ease;
@@ -62,24 +67,30 @@ body {
 }
 
 h1, h2, h3, h4, .fonte-titulo {
-  font-family: var(--fonte-titulo);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+p, li, .fonte-corpo-elegante {
+  font-family: var(--fonte-script);
+  font-size: 1.25em;
+  font-weight: 600;
 }
 
 a {
-  color: var(--dourado-claro);
+  color: var(--dourado-escuro);
 }
 a:hover {
   color: var(--dourado);
 }
 
 .text-dourado { color: var(--dourado) !important; }
-.text-dourado-claro { color: var(--dourado-claro) !important; }
-.text-terracota { color: var(--terracota-clara) !important; }
-.bg-preto { background-color: var(--preto) !important; }
-.bg-preto-suave { background-color: var(--preto-suave) !important; }
-.bg-carvao { background-color: var(--carvao) !important; }
+.text-dourado-claro { color: var(--dourado-escuro) !important; }
+.text-terracota { color: var(--terracota-escura) !important; }
+.bg-preto { background-color: var(--fundo) !important; }
+.bg-preto-suave { background-color: var(--fundo-alt) !important; }
+.bg-carvao { background-color: var(--fundo-cartao) !important; }
 .bg-terracota { background-color: var(--terracota) !important; }
 .bg-terracota-escura { background-color: var(--terracota-escura) !important; }
 
@@ -99,13 +110,13 @@ a:hover {
   border-bottom: 1px solid rgba(232, 115, 15, 0.25);
 }
 .navbar-yeshua .navbar-brand {
-  font-family: var(--fonte-titulo);
+  font-family: "Playfair Display", "Georgia", serif;
   font-size: 1.5rem;
   color: var(--dourado-claro);
   letter-spacing: 0.05em;
 }
 .marca-titulo {
-  font-family: var(--fonte-titulo);
+  font-family: "Playfair Display", "Georgia", serif;
   font-weight: 800;
   font-size: 1.4rem;
   line-height: 1;
@@ -166,16 +177,16 @@ a:hover {
 }
 .btn-outline-dourado {
   border: 1.5px solid var(--dourado);
-  color: var(--dourado-claro);
+  color: var(--dourado-escuro);
   border-radius: 50rem;
   padding: 0.6rem 1.75rem;
   font-weight: 600;
-  background: transparent;
+  background: var(--fundo-cartao);
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-outline-dourado:hover {
   background: var(--dourado);
-  color: var(--preto);
+  color: var(--fundo-cartao);
   box-shadow: 0 0 1.5rem rgba(232, 115, 15, 0.5);
 }
 .btn-terracota {
@@ -209,16 +220,16 @@ a:hover {
   display: flex;
   align-items: center;
   background:
-    radial-gradient(ellipse at 75% 20%, rgba(232, 115, 15, 0.3), transparent 55%),
-    radial-gradient(ellipse at 15% 85%, rgba(181, 80, 45, 0.24), transparent 55%),
-    linear-gradient(180deg, var(--preto) 0%, var(--preto-suave) 100%);
+    radial-gradient(ellipse at 75% 20%, rgba(255, 184, 77, 0.55), transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(181, 80, 45, 0.3), transparent 55%),
+    linear-gradient(180deg, var(--fundo) 0%, var(--fundo-alt) 100%);
   overflow: hidden;
 }
 .hero-yeshua::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(45deg, rgba(232,115,15,0.05) 0 2px, transparent 2px 40px);
+  background-image: repeating-linear-gradient(45deg, rgba(13,13,13,0.04) 0 2px, transparent 2px 40px);
   pointer-events: none;
 }
 .hero-logo {
@@ -237,12 +248,12 @@ a:hover {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   font-size: 0.8rem;
-  color: var(--terracota-clara);
+  color: var(--terracota-escura);
   font-weight: 600;
 }
 .hero-yeshua h1 {
   font-size: clamp(2.3rem, 5vw, 3.75rem);
-  color: var(--branco);
+  color: var(--preto);
 }
 
 /* ---------- Seções ---------- */
@@ -255,17 +266,17 @@ section { padding: 5rem 0; }
   letter-spacing: 0.25em;
   text-transform: uppercase;
   font-size: 0.78rem;
-  color: var(--terracota-clara);
+  color: var(--terracota-escura);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 /* ---------- Cards ---------- */
 .card-yeshua {
-  background: linear-gradient(160deg, var(--carvao), var(--preto-suave));
-  border: 1px solid rgba(232, 115, 15, 0.18);
+  background: linear-gradient(160deg, var(--fundo-cartao), var(--fundo-alt));
+  border: 1px solid rgba(232, 115, 15, 0.3);
   border-radius: var(--radius);
-  color: var(--bege);
+  color: var(--preto);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   height: 100%;
 }
@@ -289,7 +300,7 @@ section { padding: 5rem 0; }
 /* ---------- Cardápio ---------- */
 .badge-categoria {
   background: rgba(232, 115, 15, 0.15);
-  color: var(--dourado-claro);
+  color: var(--dourado-escuro);
   border: 1px solid rgba(232, 115, 15, 0.4);
   font-weight: 500;
   font-size: 0.72rem;
@@ -300,7 +311,7 @@ section { padding: 5rem 0; }
   border-radius: 50rem;
 }
 .chip-tamanho {
-  font-family: var(--fonte-titulo);
+  font-family: "Playfair Display", "Georgia", serif;
   font-size: 1.05rem;
   padding: 0.65rem 1.5rem;
 }
@@ -322,40 +333,41 @@ section { padding: 5rem 0; }
   height: 48px;
   border-radius: 50%;
   border: 2px solid var(--dourado);
-  color: var(--dourado-claro);
+  color: var(--dourado-escuro);
+  background: var(--fundo-cartao);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--fonte-titulo);
+  font-family: "Playfair Display", "Georgia", serif;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 /* ---------- Formulários ---------- */
 .form-yeshua label {
-  color: var(--dourado-claro);
+  color: var(--dourado-escuro);
   font-weight: 500;
   font-size: 0.9rem;
 }
 .form-yeshua .form-control,
 .form-yeshua .form-select {
-  background-color: var(--preto-suave);
-  border: 1px solid rgba(232, 115, 15, 0.3);
-  color: var(--bege);
+  background-color: var(--fundo-cartao);
+  border: 1px solid rgba(232, 115, 15, 0.35);
+  color: var(--preto);
 }
 .form-yeshua .form-control:focus,
 .form-yeshua .form-select:focus {
-  background-color: var(--preto-suave);
-  color: var(--bege);
+  background-color: var(--fundo-cartao);
+  color: var(--preto);
   border-color: var(--dourado);
   box-shadow: 0 0 0 0.2rem rgba(232, 115, 15, 0.2);
 }
-.form-yeshua .form-control::placeholder { color: rgba(244, 236, 221, 0.4); }
-.form-yeshua .form-check-input { background-color: var(--preto-suave); border-color: rgba(232,115,15,0.4); }
+.form-yeshua .form-control::placeholder { color: rgba(13, 13, 13, 0.4); }
+.form-yeshua .form-check-input { background-color: var(--fundo-cartao); border-color: rgba(232,115,15,0.4); }
 .form-yeshua .form-check-input:checked { background-color: var(--dourado); border-color: var(--dourado); }
 .form-yeshua .btn-check:checked + .btn-outline-dourado {
   background: var(--dourado);
-  color: var(--preto);
+  color: var(--fundo-cartao);
 }
 
 /* ---------- Footer ---------- */
@@ -403,9 +415,9 @@ footer.footer-yeshua a:hover { color: var(--dourado-claro); }
   color: var(--branco);
 }
 .zona-item {
-  border: 1px solid rgba(232, 115, 15, 0.25);
+  border: 1px solid rgba(232, 115, 15, 0.3);
   border-radius: var(--radius);
-  background: var(--carvao);
+  background: var(--fundo-cartao);
 }
 
 @media (max-width: 767.98px) {
