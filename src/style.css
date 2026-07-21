@@ -334,6 +334,36 @@ section { padding: 5rem 0; }
   font-size: 1.5rem;
 }
 
+/* ---------- Acordeão (FAQ) ---------- */
+.accordion-yeshua .accordion-item {
+  background: var(--fundo-cartao);
+  border: 1px solid rgba(232, 115, 15, 0.3);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.accordion-yeshua .accordion-button {
+  background: var(--fundo-cartao);
+  color: var(--preto);
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  box-shadow: none;
+}
+.accordion-yeshua .accordion-button:not(.collapsed) {
+  background: rgba(232, 115, 15, 0.12);
+  color: var(--dourado-escuro);
+  box-shadow: none;
+}
+.accordion-yeshua .accordion-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(232, 115, 15, 0.2);
+}
+.accordion-yeshua .accordion-button::after {
+  filter: sepia(1) saturate(4) hue-rotate(-10deg);
+}
+.accordion-yeshua .accordion-body {
+  color: rgba(13, 13, 13, 0.75);
+}
+
 /* ---------- Cardápio ---------- */
 .badge-categoria {
   background: rgba(232, 115, 15, 0.15);
