@@ -150,27 +150,35 @@ a:hover {
 .navbar-yeshua .navbar-toggler {
   border-color: rgba(13, 13, 13, 0.3);
 }
-.botao-fonte {
+.botao-fonte-grupo {
+  display: inline-flex;
+  align-items: stretch;
+  height: 2.4rem;
+  border-radius: 50rem;
+  border: 1.5px solid rgba(13, 13, 13, 0.35);
+  background: rgba(255, 250, 240, 0.55);
+  overflow: hidden;
+}
+.botao-fonte-menos,
+.botao-fonte-mais {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.1rem;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  border: 1.5px solid rgba(13, 13, 13, 0.35);
-  background: rgba(255, 250, 240, 0.55);
+  width: 2.1rem;
+  border: none;
+  background: transparent;
   color: var(--preto);
   font-family: var(--fonte-corpo);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease;
 }
-.botao-fonte:hover {
+.botao-fonte-mais { border-left: 1.5px solid rgba(13, 13, 13, 0.25); }
+.botao-fonte-menos:hover,
+.botao-fonte-mais:hover {
   background: var(--fundo-cartao);
-  transform: translateY(-1px);
 }
 /* ---------- Botões ---------- */
 .btn-dourado {

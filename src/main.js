@@ -89,16 +89,23 @@ function aplicarTamanhoTexto(tamanho) {
 
 aplicarTamanhoTexto(localStorage.getItem(TEXTO_STORAGE_KEY) || 'normal');
 
+function mudarTamanhoTexto(delta) {
+  const atual = localStorage.getItem(TEXTO_STORAGE_KEY) || 'normal';
+  const idxAtual = TAMANHOS_TEXTO.indexOf(atual);
+  const idxNovo = Math.min(TAMANHOS_TEXTO.length - 1, Math.max(0, idxAtual + delta));
+  const novo = TAMANHOS_TEXTO[idxNovo];
+  localStorage.setItem(TEXTO_STORAGE_KEY, novo);
+  aplicarTamanhoTexto(novo);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   atualizarBadgeCarrinho();
 
-  document.querySelectorAll('.botao-fonte').forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const atual = localStorage.getItem(TEXTO_STORAGE_KEY) || 'normal';
-      const proximo = TAMANHOS_TEXTO[(TAMANHOS_TEXTO.indexOf(atual) + 1) % TAMANHOS_TEXTO.length];
-      localStorage.setItem(TEXTO_STORAGE_KEY, proximo);
-      aplicarTamanhoTexto(proximo);
-    });
+  document.querySelectorAll('.botao-fonte-mais').forEach((botao) => {
+    botao.addEventListener('click', () => mudarTamanhoTexto(1));
+  });
+  document.querySelectorAll('.botao-fonte-menos').forEach((botao) => {
+    botao.addEventListener('click', () => mudarTamanhoTexto(-1));
   });
 
   // Ano automático no rodapé
