@@ -7,7 +7,6 @@
 :root {
   --preto: #0d0d0d;
   --preto-suave: #1a1712;
-  --carvao: #24201a;
 
   --fundo: #fbdca3;
   --fundo-alt: #fff2df;
@@ -21,10 +20,9 @@
   --terracota: #b5502d;
   --terracota-clara: #d98b6f;
 
-  --bege: #f4ecdd;
   --branco: #fffaf0;
 
-  --fonte-titulo: "Playfair Display", "Georgia", serif;
+  --fonte-titulo: "Special Elite", "Courier New", monospace;
   --fonte-corpo: "Poppins", "Segoe UI", sans-serif;
   --fonte-script: "Dancing Script", cursive;
 
@@ -74,12 +72,12 @@ body {
 }
 
 h1, h2, h3, h4, .fonte-titulo {
-  font-family: "Special Elite", "Courier New", monospace;
+  font-family: var(--fonte-titulo);
   font-weight: 400;
   letter-spacing: 0.01em;
 }
 
-p, li, .fonte-corpo-elegante {
+p, li {
   font-family: var(--fonte-script);
   font-size: 1.25em;
   font-weight: 600;
@@ -94,12 +92,9 @@ a:hover {
 
 .text-dourado { color: var(--dourado) !important; }
 .text-dourado-claro { color: var(--dourado-escuro) !important; }
-.text-terracota { color: var(--terracota-escura) !important; }
 .bg-preto { background-color: var(--fundo) !important; }
 .bg-preto-suave { background-color: var(--fundo-alt) !important; }
-.bg-carvao { background-color: var(--fundo-cartao) !important; }
 .bg-terracota { background-color: var(--terracota) !important; }
-.bg-terracota-escura { background-color: var(--terracota-escura) !important; }
 
 .divisor-dourado {
   width: 5rem;
@@ -432,8 +427,6 @@ section { padding: 5rem 0; }
   box-shadow: 0 0 0 0.2rem rgba(232, 115, 15, 0.2);
 }
 .form-yeshua .form-control::placeholder { color: rgba(13, 13, 13, 0.4); }
-.form-yeshua .form-check-input { background-color: var(--fundo-cartao); border-color: rgba(232,115,15,0.4); }
-.form-yeshua .form-check-input:checked { background-color: var(--dourado); border-color: var(--dourado); }
 .form-yeshua .btn-check:checked + .btn-outline-dourado {
   background: var(--dourado);
   color: var(--fundo-cartao);
