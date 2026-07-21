@@ -4,11 +4,17 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export const WHATSAPP_NUMERO = '5511998686034';
 
-// Frete fixo por região — simples de calcular e de explicar pro cliente.
+// Frete fixo por zona — como a marmita vai congelada, a entrega não precisa
+// ser imediata: dá pra agrupar pedidos por região e rota, por isso o valor é
+// fixo por zona (e não calculado por distância/tempo real).
 // ⚠️ Ajuste os valores para os reais praticados pela Yeshua.
 export const FRETE_POR_ZONA = {
-  'Capital (São Paulo)': 10,
-  'Grande São Paulo': 20,
+  'Centro': 12,
+  'Zona Oeste': 12,
+  'Zona Sul': 18,
+  'Zona Norte': 18,
+  'Zona Leste': 18,
+  'Grande São Paulo': 25,
 };
 
 // ⚠️ Valor mínimo em pratos (sem contar o frete) para o frete sair grátis.
