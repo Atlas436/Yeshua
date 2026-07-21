@@ -219,10 +219,12 @@ a:hover {
   background: var(--fundo-cartao);
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
-.btn-outline-dourado:hover {
-  background: var(--dourado);
-  color: var(--fundo-cartao);
-  box-shadow: 0 0 1.5rem rgba(232, 115, 15, 0.5);
+.btn-outline-dourado:hover,
+.btn-check + .btn-outline-dourado:hover {
+  background: var(--preto);
+  border-color: var(--preto);
+  color: var(--dourado-claro);
+  box-shadow: 0 0.5rem 1.5rem rgba(13, 13, 13, 0.35);
 }
 .btn-terracota {
   background: linear-gradient(135deg, var(--terracota-clara), var(--terracota));
