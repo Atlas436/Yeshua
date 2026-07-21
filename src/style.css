@@ -37,7 +37,11 @@ html {
   scroll-behavior: smooth;
   background-color: var(--fundo);
   overflow-x: hidden;
+  font-size: 106%;
+  transition: font-size 0.2s ease;
 }
+html.texto-grande { font-size: 122%; }
+html.texto-extra-grande { font-size: 138%; }
 
 /* ---------- Base ---------- */
 body {
@@ -145,6 +149,28 @@ a:hover {
 }
 .navbar-yeshua .navbar-toggler {
   border-color: rgba(13, 13, 13, 0.3);
+}
+.botao-fonte {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(13, 13, 13, 0.35);
+  background: rgba(255, 250, 240, 0.55);
+  color: var(--preto);
+  font-family: var(--fonte-corpo);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.botao-fonte:hover {
+  background: var(--fundo-cartao);
+  transform: translateY(-1px);
 }
 /* ---------- Botões ---------- */
 .btn-dourado {
@@ -379,6 +405,7 @@ footer.footer-yeshua {
   border-top: 1px solid rgba(13, 13, 13, 0.15);
   color: rgba(255, 250, 240, 0.85);
 }
+footer.footer-yeshua .text-dourado-claro { color: var(--fundo-cartao) !important; }
 footer.footer-yeshua a { color: rgba(255, 250, 240, 0.85); text-decoration: none; }
 footer.footer-yeshua a:hover { color: var(--preto); }
 footer.footer-yeshua li { overflow-wrap: anywhere; }

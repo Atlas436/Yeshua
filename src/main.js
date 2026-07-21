@@ -2,17 +2,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// ⚠️ Substitua pelo número real do WhatsApp da loja (formato DDI+DDD+número, só dígitos).
-export const WHATSAPP_NUMERO = '5511999999999';
+export const WHATSAPP_NUMERO = '5511998686034';
 
-// ⚠️ Valores de frete de exemplo — ajuste para os valores reais de cada região.
+// Frete fixo por região — simples de calcular e de explicar pro cliente.
+// ⚠️ Ajuste os valores para os reais praticados pela Yeshua.
 export const FRETE_POR_ZONA = {
-  'Centro': 8,
-  'Zona Sul': 12,
-  'Zona Oeste': 12,
-  'Zona Norte': 15,
-  'Zona Leste': 15,
-  'Grande SP': 25,
+  'Capital (São Paulo)': 10,
+  'Grande São Paulo': 20,
 };
 
 // ⚠️ Valor mínimo em pratos (sem contar o frete) para o frete sair grátis.
@@ -75,8 +71,29 @@ window.addEventListener('load', () => {
   }, 350);
 });
 
+// ---------- Acessibilidade: aumentar tamanho do texto ----------
+const TEXTO_STORAGE_KEY = 'yeshua_tamanho_texto';
+const TAMANHOS_TEXTO = ['normal', 'grande', 'extra-grande'];
+
+function aplicarTamanhoTexto(tamanho) {
+  document.documentElement.classList.remove('texto-grande', 'texto-extra-grande');
+  if (tamanho === 'grande') document.documentElement.classList.add('texto-grande');
+  if (tamanho === 'extra-grande') document.documentElement.classList.add('texto-extra-grande');
+}
+
+aplicarTamanhoTexto(localStorage.getItem(TEXTO_STORAGE_KEY) || 'normal');
+
 document.addEventListener('DOMContentLoaded', () => {
   atualizarBadgeCarrinho();
+
+  document.querySelectorAll('.botao-fonte').forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const atual = localStorage.getItem(TEXTO_STORAGE_KEY) || 'normal';
+      const proximo = TAMANHOS_TEXTO[(TAMANHOS_TEXTO.indexOf(atual) + 1) % TAMANHOS_TEXTO.length];
+      localStorage.setItem(TEXTO_STORAGE_KEY, proximo);
+      aplicarTamanhoTexto(proximo);
+    });
+  });
 
   // Ano automático no rodapé
   document.querySelectorAll('[data-ano-atual]').forEach((el) => {
