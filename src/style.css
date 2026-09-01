@@ -271,6 +271,29 @@ a:hover {
     linear-gradient(180deg, var(--fundo) 0%, var(--fundo-alt) 100%);
   overflow: hidden;
 }
+
+/* ---------- Rabiscos decorativos (inspirados na embalagem) ---------- */
+.doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--terracota-escura);
+  z-index: 0;
+}
+.doodle { position: absolute; opacity: 0.3; }
+.doodle-cenoura { width: 46px; height: auto; top: 16%; right: 9%; transform: rotate(18deg); }
+.doodle-beterraba { width: 42px; height: auto; bottom: 12%; left: 7%; transform: rotate(-10deg); }
+.doodle-swirl { width: 90px; height: auto; }
+.doodle-2 { top: 16%; left: 4%; }
+.doodle-4 { bottom: 8%; right: 5%; transform: scaleX(-1); }
+.doodle-ponto { width: 10px; height: 10px; }
+.doodle-5 { top: 28%; right: 22%; }
+.doodle-6 { bottom: 24%; left: 20%; }
+.doodle-7 { top: 12%; left: 30%; }
+@media (max-width: 767.98px) {
+  .doodle-cenoura, .doodle-beterraba { width: 32px; }
+  .doodle-swirl { width: 60px; }
+}
 .hero-yeshua::before {
   content: "";
   position: absolute;
