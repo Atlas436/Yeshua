@@ -25,6 +25,7 @@
   --fonte-titulo: "Cinzel", "Georgia", serif;
   --fonte-corpo: "Poppins", "Segoe UI", sans-serif;
   --fonte-script: "Dancing Script", cursive;
+  --fonte-maquina: "Special Elite", "Courier New", monospace;
 
   --radius: 0.75rem;
   --shadow-dourada: 0 0.5rem 1.5rem rgba(245, 128, 32, 0.3), 0 0 2rem rgba(255, 157, 77, 0.18);
@@ -78,9 +79,10 @@ h1, h2, h3, h4, .fonte-titulo {
 }
 
 p, li {
-  font-family: var(--fonte-script);
-  font-size: 1.25em;
-  font-weight: 600;
+  font-family: var(--fonte-maquina);
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 a {
@@ -261,6 +263,14 @@ a:hover {
 }
 .btn-whatsapp:hover { color: #fff; filter: brightness(1.05); }
 
+.hero-logo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1.75rem;
+  border-radius: 26%;
+  box-shadow: 0 1rem 2.5rem rgba(40, 14, 4, 0.35), 0 0 3rem rgba(245, 128, 32, 0.4);
+}
+
 /* ---------- Hero ---------- */
 .hero-yeshua {
   position: relative;
@@ -355,7 +365,23 @@ section { padding: 5rem 0; }
   justify-content: center;
   background: rgba(245, 128, 32, 0.12);
   color: var(--dourado);
-  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.icon-wrap .icone-linha {
+  width: 26px;
+  height: 26px;
+}
+.icone-linha {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  flex-shrink: 0;
+}
+.zona-item .icone-linha,
+.fs-3 .icone-linha {
+  width: 32px;
+  height: 32px;
+  color: var(--dourado);
 }
 
 /* ---------- Acordeão (FAQ) ---------- */

@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="fonte-titulo" style="min-width: 1.5rem; text-align: center;">${item.quantidade}</span>
             <button type="button" class="btn btn-outline-dourado btn-sm" data-carrinho-mais="${indice}" aria-label="Aumentar quantidade">+</button>
             <span class="fonte-titulo text-dourado ms-2" style="min-width: 5rem; text-align: right;">${formatarMoeda(item.preco * item.quantidade)}</span>
-            <button type="button" class="btn btn-terracota btn-sm" data-carrinho-remover="${indice}" aria-label="Remover item">🗑</button>
+            <button type="button" class="btn btn-terracota btn-sm" data-carrinho-remover="${indice}" aria-label="Remover item"><svg class="icone-linha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button>
           </div>
         </div>
       `).join('');
