@@ -1,6 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { supabase } from './supabase.js';
+
+// Salva o pedido no banco em segundo plano — nunca atrasa/bloqueia o
+// window.open do WhatsApp (que precisa rodar sincronamente pro navegador
+// não bloquear o popup) nem impede o pedido de seguir se o banco falhar.
+function salvarPedidoNoBanco(pedido) {
+  supabase.from('pedidos').insert(pedido).then(({ error }) => {
+    if (error) console.error('Não foi possível salvar o pedido no banco:', error);
+  });
+}
 
 export const WHATSAPP_NUMERO = '5511998686034';
 
@@ -549,6 +559,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
         window.open(url, '_blank', 'noopener');
 
+        salvarPedidoNoBanco({
+          origem: 'checkout',
+          nome: dados.get('nome'),
+          telefone: dados.get('telefone'),
+          endereco: dados.get('endereco'),
+          bairro: dados.get('bairro'),
+          zona,
+          itens: itensCarrinho,
+          subtotal,
+          frete,
+          total,
+          forma_pagamento: dados.get('pagamento'),
+          observacoes: `Complemento: ${dados.get('complemento') || '—'} · Data desejada: ${dados.get('data-entrega')}`,
+        });
+
         salvarCarrinho([]);
 
         const alerta = document.getElementById('alerta-checkout');
@@ -596,6 +621,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
       window.open(url, '_blank', 'noopener');
+
+      salvarPedidoNoBanco({
+        origem: 'personalizado',
+        nome,
+        telefone,
+        bairro,
+        itens: [{ tamanho, quantidade, proteina }],
+        observacoes: `Restrições: ${restricoes} · Data desejada: ${dataEntrega} · Observações: ${observacoes}`,
+      });
 
       const alerta = document.getElementById('alerta-envio');
       if (alerta) {

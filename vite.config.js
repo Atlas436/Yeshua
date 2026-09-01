@@ -11,7 +11,8 @@ export default defineConfig({
         personalizar: resolve(__dirname, 'personalizar.html'),
         checkout: resolve(__dirname, 'checkout.html'),
         carrinho: resolve(__dirname, 'carrinho.html'),
-        contato: resolve(__dirname, 'contato.html')
+        contato: resolve(__dirname, 'contato.html'),
+        admin: resolve(__dirname, 'admin.html')
       }
     }
   }
