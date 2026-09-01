@@ -356,6 +356,14 @@ section { padding: 5rem 0; }
   border-color: rgba(245, 128, 32, 0.55);
   box-shadow: var(--shadow-dourada);
 }
+
+/* ---------- Grade assimétrica (quebra a simetria perfeita) ---------- */
+@media (min-width: 992px) {
+  .stagger-up { transform: translateY(-1.75rem); }
+  .stagger-down { transform: translateY(1.75rem); }
+  .stagger-rot-l { transform: rotate(-1.3deg); }
+  .stagger-rot-r { transform: rotate(1.1deg) translateY(-0.75rem); }
+}
 .card-yeshua .icon-wrap {
   width: 56px;
   height: 56px;
