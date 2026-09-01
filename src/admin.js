@@ -17,12 +17,26 @@ const vazioEl = document.getElementById('pedidos-vazio');
 const formatarMoeda = (valor) => (valor === null || valor === undefined ? '—' : `R$ ${Number(valor).toFixed(2).replace('.', ',')}`);
 const formatarData = (iso) => new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 
+// Todo campo de pedido vem de um formulário público — qualquer visitante
+// pode digitar HTML/script no nome, telefone, observações etc. Sem escapar
+// isso antes de jogar no innerHTML, um pedido malicioso rodaria código
+// arbitrário na sessão logada do admin (e poderia roubar o login).
+function escaparHtml(valor) {
+  if (valor === null || valor === undefined) return '';
+  return String(valor)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 function renderizarItens(itens) {
   if (!Array.isArray(itens)) return '';
   return itens
     .map((item) => {
-      if (item.descricao) return `${item.quantidade}x Marmita ${item.tamanho} — ${item.descricao}`;
-      const partes = [`${item.quantidade || 1}x`, item.tamanho, item.proteina].filter(Boolean);
+      if (item.descricao) return `${escaparHtml(item.quantidade)}x Marmita ${escaparHtml(item.tamanho)} — ${escaparHtml(item.descricao)}`;
+      const partes = [`${escaparHtml(item.quantidade || 1)}x`, escaparHtml(item.tamanho), escaparHtml(item.proteina)].filter(Boolean);
       return partes.join(' ');
     })
     .join('<br>');
@@ -51,16 +65,16 @@ async function carregarPedidos() {
       <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
         <div>
           <span class="badge badge-categoria rounded-pill me-2">${pedido.origem === 'checkout' ? 'Cardápio fixo' : 'Personalizado'}</span>
-          <strong>${pedido.nome}</strong>
+          <strong>${escaparHtml(pedido.nome)}</strong>
         </div>
         <span class="small" style="color: rgba(40,14,4,0.6);">${formatarData(pedido.criado_em)}</span>
       </div>
       <p class="small mb-1" style="color: rgba(40,14,4,0.75);">${renderizarItens(pedido.itens)}</p>
       <p class="small mb-1" style="color: rgba(40,14,4,0.6);">
-        Tel: ${pedido.telefone}${pedido.bairro ? ' · Bairro: ' + pedido.bairro : ''}${pedido.zona ? ' · Zona: ' + pedido.zona : ''}
+        Tel: ${escaparHtml(pedido.telefone)}${pedido.bairro ? ' · Bairro: ' + escaparHtml(pedido.bairro) : ''}${pedido.zona ? ' · Zona: ' + escaparHtml(pedido.zona) : ''}
       </p>
       ${pedido.total ? `<p class="fonte-titulo text-dourado mb-2">${formatarMoeda(pedido.total)}</p>` : ''}
-      ${pedido.observacoes ? `<p class="small mb-2" style="color: rgba(40,14,4,0.6);">${pedido.observacoes}</p>` : ''}
+      ${pedido.observacoes ? `<p class="small mb-2" style="color: rgba(40,14,4,0.6);">${escaparHtml(pedido.observacoes)}</p>` : ''}
       <select class="form-select form-select-sm" style="max-width: 200px;" data-pedido-status="${pedido.id}">
         ${Object.entries(STATUS_LABELS)
           .map(([valor, label]) => `<option value="${valor}" ${pedido.status === valor ? 'selected' : ''}>${label}</option>`)
