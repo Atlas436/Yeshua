@@ -20,7 +20,8 @@
   <meta name="twitter:image" content="https://yeshua-marmitas-fit.netlify.app/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
 </head>
 <body>
 
@@ -30,6 +31,7 @@
   <nav class="navbar navbar-expand-lg navbar-light navbar-yeshua fixed-top py-3">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="/logo-icon.svg" alt="Yeshua Marmitaria Fit" class="logo-nav" width="42" height="42" />
         <span class="d-flex flex-column">
           <span class="marca-titulo">Yeshua</span>
           <span class="marca-tagline">marmitaria fit</span>
@@ -64,10 +66,35 @@
 
   <!-- ===== Cabeçalho da página ===== -->
   <header class="hero-yeshua" style="min-height: 40vh;">
+    <div class="doodles" aria-hidden="true">
+      <svg class="doodle doodle-cenoura doodle-1" viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M30 15 C 24 32 21 55 30 76 C 39 55 36 32 30 15 Z" />
+        <path d="M22 19 Q 12 10 6 1" />
+        <path d="M30 15 Q 30 4 30 -6" />
+        <path d="M38 19 Q 48 10 54 1" />
+        <line x1="24" y1="36" x2="34" y2="36" />
+        <line x1="25.5" y1="47" x2="32.5" y2="47" />
+        <line x1="27" y1="58" x2="31" y2="58" />
+      </svg>
+      <svg class="doodle doodle-swirl doodle-2" viewBox="0 0 100 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M4 22 Q 26 2 48 22 T 96 20" />
+      </svg>
+      <svg class="doodle doodle-beterraba doodle-3" viewBox="0 0 60 70" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M30 22 C 14 22 8 38 14 52 C 19 64 41 64 46 52 C 52 38 46 22 30 22 Z" />
+        <path d="M30 22 Q 24 9 13 5" />
+        <path d="M30 22 Q 33 9 44 4" />
+      </svg>
+      <svg class="doodle doodle-swirl doodle-4" viewBox="0 0 100 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M4 20 Q 26 0 48 20 T 96 18" />
+      </svg>
+      <svg class="doodle doodle-ponto doodle-5" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6" fill="currentColor" /></svg>
+      <svg class="doodle doodle-ponto doodle-6" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6" fill="currentColor" /></svg>
+      <svg class="doodle doodle-ponto doodle-7" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6" fill="currentColor" /></svg>
+    </div>
     <div class="container text-center">
       <p class="kicker mb-3">Cardápio fixo</p>
       <h1 class="fonte-titulo mb-3">Monte a sua <span class="text-dourado">marmita</span></h1>
-      <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(13,13,13,0.85);">
+      <p class="fs-5 mx-auto" style="max-width: 620px; color: rgba(40, 14, 4,0.85);">
         Escolha o tamanho e combine 1 proteína, 1 carboidrato e 1 legume das nossas opções fixas. Simples assim.
       </p>
     </div>
@@ -86,32 +113,32 @@
         <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="M">M · 450g · R$ 19,00</button>
         <button type="button" class="btn btn-outline-dourado chip-ingrediente chip-tamanho" data-tamanho-marmita="G">G · 600g · R$ 25,00</button>
       </div>
-      <p class="text-center small mt-3 mb-0" id="detalheTamanhoSelecionado" style="color: rgba(13,13,13,0.6); min-height: 1.2em;"></p>
+      <p class="text-center small mt-3 mb-0" id="detalheTamanhoSelecionado" style="color: rgba(40, 14, 4,0.6); min-height: 1.2em;"></p>
 
       <div class="row justify-content-center g-3 mt-4">
         <div class="col-6 col-md-3">
           <div class="card-yeshua p-3 text-center h-100">
-            <p class="small mb-1" style="color: rgba(13,13,13,0.55);">P · ~320g</p>
+            <p class="small mb-1" style="color: rgba(40, 14, 4,0.55);">P · ~320g</p>
             <p class="fonte-titulo fs-5 text-dourado mb-1">~420 kcal</p>
-            <p class="small mb-0" style="color: rgba(13,13,13,0.6);">32g proteína · 40g carbo · 12g gordura</p>
+            <p class="small mb-0" style="color: rgba(40, 14, 4,0.6);">32g proteína · 40g carbo · 12g gordura</p>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="card-yeshua p-3 text-center h-100">
-            <p class="small mb-1" style="color: rgba(13,13,13,0.55);">M · ~450g</p>
+            <p class="small mb-1" style="color: rgba(40, 14, 4,0.55);">M · ~450g</p>
             <p class="fonte-titulo fs-5 text-dourado mb-1">~560 kcal</p>
-            <p class="small mb-0" style="color: rgba(13,13,13,0.6);">42g proteína · 55g carbo · 16g gordura</p>
+            <p class="small mb-0" style="color: rgba(40, 14, 4,0.6);">42g proteína · 55g carbo · 16g gordura</p>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="card-yeshua p-3 text-center h-100">
-            <p class="small mb-1" style="color: rgba(13,13,13,0.55);">G · ~600g</p>
+            <p class="small mb-1" style="color: rgba(40, 14, 4,0.55);">G · ~600g</p>
             <p class="fonte-titulo fs-5 text-dourado mb-1">~720 kcal</p>
-            <p class="small mb-0" style="color: rgba(13,13,13,0.6);">55g proteína · 70g carbo · 20g gordura</p>
+            <p class="small mb-0" style="color: rgba(40, 14, 4,0.6);">55g proteína · 70g carbo · 20g gordura</p>
           </div>
         </div>
       </div>
-      <p class="text-center small mt-3 mb-0" style="color: rgba(13,13,13,0.5);">*Valores aproximados de referência — podem variar de acordo com os ingredientes escolhidos.</p>
+      <p class="text-center small mt-3 mb-0" style="color: rgba(40, 14, 4,0.5);">*Valores aproximados de referência — podem variar de acordo com os ingredientes escolhidos.</p>
     </div>
   </section>
 
@@ -130,7 +157,7 @@
           <!-- Proteína -->
           <div class="card-yeshua p-4 p-md-5 mb-4">
             <h5 class="fonte-titulo mb-1">Proteína <span class="text-dourado-claro small" id="pesoProteina"></span></h5>
-            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(40, 14, 4,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="proteina">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne de panela">Carne de panela</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Carne moída">Carne moída</button>
@@ -145,7 +172,7 @@
             </div>
 
             <!-- Descrição da proteína escolhida (só pras que não têm sub-preparo) -->
-            <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(13,13,13,0.6);"></p>
+            <p id="blocoProteinaDescricao" class="small mt-3 mb-0 d-none" style="color: rgba(40, 14, 4,0.6);"></p>
 
             <!-- Preparo da carne moída (aparece só se Carne moída for escolhida) -->
             <div id="blocoCarneMoidaPreparo" class="mt-4 d-none">
@@ -174,7 +201,7 @@
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mexido">Mexido</button>
                 <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Omelete fit">Omelete fit</button>
               </div>
-              <p id="blocoOvoPreparoDescricao" class="small mt-2 mb-0 d-none" style="color: rgba(13,13,13,0.6);"></p>
+              <p id="blocoOvoPreparoDescricao" class="small mt-2 mb-0 d-none" style="color: rgba(40, 14, 4,0.6);"></p>
             </div>
 
             <!-- Preparo do filé de frango (aparece só se Filé de frango for escolhido) -->
@@ -190,7 +217,7 @@
           <!-- Carboidrato -->
           <div class="card-yeshua p-4 p-md-5 mb-4">
             <h5 class="fonte-titulo mb-1">Carboidrato <span class="text-dourado-claro small" id="pesoCarboidrato"></span></h5>
-            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(40, 14, 4,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="carboidrato">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Arroz">Arroz</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Mandioca">Mandioca</button>
@@ -281,7 +308,7 @@
           <!-- Legumes -->
           <div class="card-yeshua p-4 p-md-5">
             <h5 class="fonte-titulo mb-1">Legumes <span class="text-dourado-claro small" id="pesoLegume"></span></h5>
-            <p class="small mb-3" style="color: rgba(13,13,13,0.6);">Escolha 1 opção.</p>
+            <p class="small mb-3" style="color: rgba(40, 14, 4,0.6);">Escolha 1 opção.</p>
             <div class="d-flex flex-wrap gap-2" data-grupo-ingrediente="legume">
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Brócolis">Brócolis</button>
               <button type="button" class="btn btn-outline-dourado chip-ingrediente" data-valor="Abobrinha">Abobrinha</button>
@@ -321,7 +348,7 @@
               Marmita adicionada ao carrinho! Monte outra ou <a href="carrinho.html" class="text-dourado-claro">veja o carrinho</a>.
             </div>
 
-            <ul class="list-unstyled small mb-4" style="color: rgba(13,13,13,0.85);">
+            <ul class="list-unstyled small mb-4" style="color: rgba(40, 14, 4,0.85);">
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Tamanho</span><strong id="resumoTamanhoTxt" class="text-end">—</strong></li>
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Proteína</span><strong id="resumoProteinaTxt" class="text-end">—</strong></li>
               <li class="mb-2 d-flex justify-content-between gap-2"><span>Carboidrato</span><strong id="resumoCarboidratoTxt" class="text-end">—</strong></li>
@@ -333,7 +360,7 @@
               <span class="fonte-titulo fs-3 text-dourado" id="resumoPrecoTxt">R$ 0,00</span>
             </div>
             <button type="button" class="btn btn-dourado w-100" id="btnFinalizarMontagem" disabled>🛒 Adicionar ao carrinho</button>
-            <p class="small mt-3 mb-0 text-center" style="color: rgba(13,13,13,0.5);">Escolha o tamanho e todos os ingredientes para continuar.</p>
+            <p class="small mt-3 mb-0 text-center" style="color: rgba(40, 14, 4,0.5);">Escolha o tamanho e todos os ingredientes para continuar.</p>
           </div>
         </div>
       </div>
@@ -344,7 +371,7 @@
   <section class="bg-preto">
     <div class="container text-center">
       <h3 class="fonte-titulo mb-3">Precisa de algo fora do cardápio?</h3>
-      <p class="mb-4" style="color: rgba(13,13,13,0.8);">Grandes quantidades, restrições específicas ou combinações fora das opções acima: fale com a gente.</p>
+      <p class="mb-4" style="color: rgba(40, 14, 4,0.8);">Grandes quantidades, restrições específicas ou combinações fora das opções acima: fale com a gente.</p>
       <a href="personalizar.html" class="btn btn-dourado">Fazer pedido personalizado</a>
     </div>
   </section>
@@ -355,6 +382,7 @@
       <div class="row g-4">
         <div class="col-lg-4">
           <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none mb-3">
+            <img src="/logo-icon.svg" alt="Yeshua" width="36" height="36" />
             <span class="fonte-titulo fs-4 text-dourado-claro">Yeshua</span>
           </a>
           <p class="small">Marmitas fit congeladas com sabor, força e nobreza — entregues em toda São Paulo.</p>

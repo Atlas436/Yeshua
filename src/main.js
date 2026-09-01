@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="badge badge-categoria rounded-pill">${item.tamanho}</span>
                 <span class="fw-semibold">Marmita ${item.tamanho}</span>
               </div>
-              <p class="small mb-0" style="color: rgba(13,13,13,0.65);">${item.descricao}</p>
+              <p class="small mb-0" style="color: rgba(40, 14, 4,0.65);">${item.descricao}</p>
               <p class="small mb-0 text-dourado-claro">${item.quantidade} × ${formatarMoeda(item.preco)}</p>
             </div>
             <span class="text-dourado-claro fw-semibold">${formatarMoeda(item.preco * item.quantidade)}</span>

@@ -1,33 +1,33 @@
 /* ============================================================
    YESHUA — Marmitas Fit Congeladas
-   Paleta: laranja claro, amarelo, branco — com preto como acento
-   (na navbar, rodapé, textos e no leão) e um toque de terracota
+   Paleta oficial da logomarca: laranja #F58020, com os tons de
+   marrom/terracota do leão como acento (navbar, rodapé, textos)
    ============================================================ */
 
 :root {
-  --preto: #0d0d0d;
-  --preto-suave: #1a1712;
+  --preto: #280e04;
+  --preto-suave: #3a1508;
 
   --fundo: #fbdca3;
   --fundo-alt: #fff2df;
   --fundo-cartao: #fffaf2;
 
-  --dourado-escuro: #a8480f;
-  --dourado: #e8730f;
-  --dourado-claro: #ffb84d;
+  --dourado-escuro: #a34c10;
+  --dourado: #f58020;
+  --dourado-claro: #ff9d4d;
 
-  --terracota-escura: #8c3a2b;
-  --terracota: #b5502d;
-  --terracota-clara: #d98b6f;
+  --terracota-escura: #591f00;
+  --terracota: #743a1a;
+  --terracota-clara: #8f4b13;
 
   --branco: #fffaf0;
 
-  --fonte-titulo: "Special Elite", "Courier New", monospace;
+  --fonte-titulo: "Cinzel", "Georgia", serif;
   --fonte-corpo: "Poppins", "Segoe UI", sans-serif;
   --fonte-script: "Dancing Script", cursive;
 
   --radius: 0.75rem;
-  --shadow-dourada: 0 0.5rem 1.5rem rgba(232, 115, 15, 0.3), 0 0 2rem rgba(255, 184, 77, 0.18);
+  --shadow-dourada: 0 0.5rem 1.5rem rgba(245, 128, 32, 0.3), 0 0 2rem rgba(255, 157, 77, 0.18);
 }
 
 html {
@@ -57,7 +57,7 @@ body {
   inset: 0;
   z-index: 2000;
   background-color: var(--fundo);
-  background-image: radial-gradient(rgba(13, 13, 13, 0.5) 1px, transparent 1.6px);
+  background-image: radial-gradient(rgba(40, 14, 4, 0.5) 1px, transparent 1.6px);
   background-size: 16px 16px;
   animation: loader-brilho 1.6s linear infinite;
   transition: opacity 0.5s ease;
@@ -73,8 +73,8 @@ body {
 
 h1, h2, h3, h4, .fonte-titulo {
   font-family: var(--fonte-titulo);
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 p, li {
@@ -109,18 +109,18 @@ a:hover {
 .navbar-yeshua {
   background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(13, 13, 13, 0.15);
-  box-shadow: 0 0.25rem 1.25rem rgba(232, 115, 15, 0.3);
+  border-bottom: 1px solid rgba(40, 14, 4, 0.15);
+  box-shadow: 0 0.25rem 1.25rem rgba(245, 128, 32, 0.3);
 }
 .navbar-yeshua .navbar-brand {
-  font-family: "Playfair Display", "Georgia", serif;
+  font-family: var(--fonte-titulo);
   font-size: 1.5rem;
   color: var(--preto);
   letter-spacing: 0.05em;
 }
 .marca-titulo {
-  font-family: "Playfair Display", "Georgia", serif;
-  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
   font-size: 1.4rem;
   line-height: 1;
   color: var(--preto);
@@ -134,7 +134,7 @@ a:hover {
   margin-top: -0.15rem;
 }
 .navbar-yeshua .nav-link {
-  color: rgba(13, 13, 13, 0.8);
+  color: rgba(40, 14, 4, 0.8);
   font-weight: 600;
   margin: 0 0.35rem;
 }
@@ -143,14 +143,18 @@ a:hover {
   color: var(--preto);
 }
 .navbar-yeshua .navbar-toggler {
-  border-color: rgba(13, 13, 13, 0.3);
+  border-color: rgba(40, 14, 4, 0.3);
+}
+.logo-nav {
+  border-radius: 22%;
+  box-shadow: 0 0.15rem 0.6rem rgba(40, 14, 4, 0.25);
 }
 .botao-fonte-grupo {
   display: inline-flex;
   align-items: stretch;
   height: 2.4rem;
   border-radius: 50rem;
-  border: 1.5px solid rgba(13, 13, 13, 0.35);
+  border: 1.5px solid rgba(40, 14, 4, 0.35);
   background: rgba(255, 250, 240, 0.55);
   overflow: hidden;
 }
@@ -170,7 +174,7 @@ a:hover {
   cursor: pointer;
   transition: background 0.2s ease;
 }
-.botao-fonte-mais { border-left: 1.5px solid rgba(13, 13, 13, 0.25); }
+.botao-fonte-mais { border-left: 1.5px solid rgba(40, 14, 4, 0.25); }
 .botao-fonte-menos:hover,
 .botao-fonte-mais:hover {
   background: var(--fundo-cartao);
@@ -200,7 +204,7 @@ a:hover {
 .btn-dourado:hover {
   color: var(--preto);
   transform: translateY(-2px);
-  box-shadow: 0 0.75rem 2rem rgba(232, 115, 15, 0.45), 0 0 2.5rem rgba(255, 184, 77, 0.3);
+  box-shadow: 0 0.75rem 2rem rgba(245, 128, 32, 0.45), 0 0 2.5rem rgba(255, 157, 77, 0.3);
 }
 .btn-dourado:hover::after {
   transform: translateX(120%);
@@ -219,7 +223,7 @@ a:hover {
   background: var(--preto);
   border-color: var(--preto);
   color: var(--dourado-claro);
-  box-shadow: 0 0.5rem 1.5rem rgba(13, 13, 13, 0.35);
+  box-shadow: 0 0.5rem 1.5rem rgba(40, 14, 4, 0.35);
 }
 .btn-terracota {
   background: linear-gradient(135deg, var(--terracota-clara), var(--terracota));
@@ -245,7 +249,7 @@ a:hover {
 .btn-preto:hover {
   color: var(--dourado-claro);
   transform: translateY(-2px);
-  box-shadow: 0 0.75rem 2rem rgba(13, 13, 13, 0.35);
+  box-shadow: 0 0.75rem 2rem rgba(40, 14, 4, 0.35);
 }
 .btn-whatsapp {
   background: #25d366;
@@ -266,7 +270,7 @@ a:hover {
   display: flex;
   align-items: center;
   background:
-    radial-gradient(ellipse at 75% 20%, rgba(255, 184, 77, 0.55), transparent 55%),
+    radial-gradient(ellipse at 75% 20%, rgba(255, 157, 77, 0.55), transparent 55%),
     radial-gradient(ellipse at 15% 85%, rgba(181, 80, 45, 0.3), transparent 55%),
     linear-gradient(180deg, var(--fundo) 0%, var(--fundo-alt) 100%);
   overflow: hidden;
@@ -298,7 +302,7 @@ a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(45deg, rgba(13,13,13,0.04) 0 2px, transparent 2px 40px);
+  background-image: repeating-linear-gradient(45deg, rgba(40, 14, 4,0.04) 0 2px, transparent 2px 40px);
   pointer-events: none;
 }
 .hero-yeshua .kicker {
@@ -331,7 +335,7 @@ section { padding: 5rem 0; }
 /* ---------- Cards ---------- */
 .card-yeshua {
   background: linear-gradient(160deg, var(--fundo-cartao), var(--fundo-alt));
-  border: 1px solid rgba(232, 115, 15, 0.3);
+  border: 1px solid rgba(245, 128, 32, 0.3);
   border-radius: var(--radius);
   color: var(--preto);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -339,7 +343,7 @@ section { padding: 5rem 0; }
 }
 .card-yeshua:hover {
   transform: translateY(-6px);
-  border-color: rgba(232, 115, 15, 0.55);
+  border-color: rgba(245, 128, 32, 0.55);
   box-shadow: var(--shadow-dourada);
 }
 .card-yeshua .icon-wrap {
@@ -349,7 +353,7 @@ section { padding: 5rem 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(232, 115, 15, 0.12);
+  background: rgba(245, 128, 32, 0.12);
   color: var(--dourado);
   font-size: 1.5rem;
 }
@@ -357,7 +361,7 @@ section { padding: 5rem 0; }
 /* ---------- Acordeão (FAQ) ---------- */
 .accordion-yeshua .accordion-item {
   background: var(--fundo-cartao);
-  border: 1px solid rgba(232, 115, 15, 0.3);
+  border: 1px solid rgba(245, 128, 32, 0.3);
   border-radius: var(--radius);
   margin-bottom: 1rem;
   overflow: hidden;
@@ -370,25 +374,25 @@ section { padding: 5rem 0; }
   box-shadow: none;
 }
 .accordion-yeshua .accordion-button:not(.collapsed) {
-  background: rgba(232, 115, 15, 0.12);
+  background: rgba(245, 128, 32, 0.12);
   color: var(--dourado-escuro);
   box-shadow: none;
 }
 .accordion-yeshua .accordion-button:focus {
-  box-shadow: 0 0 0 0.2rem rgba(232, 115, 15, 0.2);
+  box-shadow: 0 0 0 0.2rem rgba(245, 128, 32, 0.2);
 }
 .accordion-yeshua .accordion-button::after {
   filter: sepia(1) saturate(4) hue-rotate(-10deg);
 }
 .accordion-yeshua .accordion-body {
-  color: rgba(13, 13, 13, 0.75);
+  color: rgba(40, 14, 4, 0.75);
 }
 
 /* ---------- Cardápio ---------- */
 .badge-categoria {
-  background: rgba(232, 115, 15, 0.15);
+  background: rgba(245, 128, 32, 0.15);
   color: var(--dourado-escuro);
-  border: 1px solid rgba(232, 115, 15, 0.4);
+  border: 1px solid rgba(245, 128, 32, 0.4);
   font-weight: 500;
   font-size: 0.72rem;
 }
@@ -398,7 +402,7 @@ section { padding: 5rem 0; }
   border-radius: 50rem;
 }
 .chip-tamanho {
-  font-family: "Playfair Display", "Georgia", serif;
+  font-family: var(--fonte-titulo);
   font-size: 1.05rem;
   padding: 0.65rem 1.5rem;
 }
@@ -407,7 +411,7 @@ section { padding: 5rem 0; }
   color: var(--preto);
   border-color: transparent;
   font-weight: 600;
-  box-shadow: 0 0 1.25rem rgba(232, 115, 15, 0.55);
+  box-shadow: 0 0 1.25rem rgba(245, 128, 32, 0.55);
 }
 .chip-ingrediente[disabled] {
   opacity: 0.35;
@@ -425,7 +429,7 @@ section { padding: 5rem 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Playfair Display", "Georgia", serif;
+  font-family: var(--fonte-titulo);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -439,7 +443,7 @@ section { padding: 5rem 0; }
 .form-yeshua .form-control,
 .form-yeshua .form-select {
   background-color: var(--fundo-cartao);
-  border: 1px solid rgba(232, 115, 15, 0.35);
+  border: 1px solid rgba(245, 128, 32, 0.35);
   color: var(--preto);
 }
 .form-yeshua .form-control:focus,
@@ -447,9 +451,9 @@ section { padding: 5rem 0; }
   background-color: var(--fundo-cartao);
   color: var(--preto);
   border-color: var(--dourado);
-  box-shadow: 0 0 0 0.2rem rgba(232, 115, 15, 0.2);
+  box-shadow: 0 0 0 0.2rem rgba(245, 128, 32, 0.2);
 }
-.form-yeshua .form-control::placeholder { color: rgba(13, 13, 13, 0.4); }
+.form-yeshua .form-control::placeholder { color: rgba(40, 14, 4, 0.4); }
 .form-yeshua .btn-check:checked + .btn-outline-dourado {
   background: var(--dourado);
   color: var(--fundo-cartao);
@@ -458,7 +462,7 @@ section { padding: 5rem 0; }
 /* ---------- Footer ---------- */
 footer.footer-yeshua {
   background: linear-gradient(180deg, var(--dourado-escuro), var(--terracota-escura));
-  border-top: 1px solid rgba(13, 13, 13, 0.15);
+  border-top: 1px solid rgba(40, 14, 4, 0.15);
   color: rgba(255, 250, 240, 0.85);
 }
 footer.footer-yeshua .text-dourado-claro { color: var(--fundo-cartao) !important; }
@@ -469,7 +473,7 @@ footer.footer-yeshua li { overflow-wrap: anywhere; }
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(232, 115, 15, 0.4);
+  border: 1px solid rgba(245, 128, 32, 0.4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -502,7 +506,7 @@ footer.footer-yeshua li { overflow-wrap: anywhere; }
   color: var(--branco);
 }
 .zona-item {
-  border: 1px solid rgba(232, 115, 15, 0.3);
+  border: 1px solid rgba(245, 128, 32, 0.3);
   border-radius: var(--radius);
   background: var(--fundo-cartao);
 }
