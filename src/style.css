@@ -109,15 +109,14 @@ a:hover {
 
 /* ---------- Navbar ---------- */
 .navbar-yeshua {
-  background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(40, 14, 4, 0.15);
-  box-shadow: 0 0.25rem 1.25rem rgba(245, 128, 32, 0.3);
+  background: var(--preto);
+  border-bottom: 1px solid rgba(255, 157, 77, 0.18);
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.35);
 }
 .navbar-yeshua .navbar-brand {
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
-  color: var(--preto);
+  color: var(--dourado-claro);
   letter-spacing: 0.05em;
 }
 .marca-titulo {
@@ -125,39 +124,49 @@ a:hover {
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1;
-  color: var(--preto);
+  color: var(--dourado-claro);
 }
 .marca-tagline {
   font-family: var(--fonte-script);
   font-weight: 600;
   font-size: 1.3rem;
   line-height: 1;
-  color: var(--preto-suave);
+  color: rgba(255, 250, 240, 0.65);
   margin-top: -0.15rem;
 }
 .navbar-yeshua .nav-link {
-  color: rgba(40, 14, 4, 0.8);
+  color: rgba(255, 250, 240, 0.72);
   font-weight: 600;
-  margin: 0 0.35rem;
+  margin: 0 0.15rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease;
 }
-.navbar-yeshua .nav-link:hover,
+.navbar-yeshua .nav-link:hover {
+  background: rgba(255, 157, 77, 0.14);
+  color: var(--dourado-claro);
+}
 .navbar-yeshua .nav-link.active {
+  background: var(--dourado);
   color: var(--preto);
 }
 .navbar-yeshua .navbar-toggler {
-  border-color: rgba(40, 14, 4, 0.3);
+  border-color: rgba(255, 250, 240, 0.35);
+}
+.navbar-yeshua .navbar-toggler-icon {
+  filter: invert(1) grayscale(1) brightness(2);
 }
 .logo-nav {
   border-radius: 22%;
-  box-shadow: 0 0.15rem 0.6rem rgba(40, 14, 4, 0.25);
+  box-shadow: 0 0.15rem 0.6rem rgba(0, 0, 0, 0.45);
 }
 .botao-fonte-grupo {
   display: inline-flex;
   align-items: stretch;
   height: 2.4rem;
   border-radius: 50rem;
-  border: 1.5px solid rgba(40, 14, 4, 0.35);
-  background: rgba(255, 250, 240, 0.55);
+  border: 1.5px solid rgba(255, 250, 240, 0.3);
+  background: rgba(255, 250, 240, 0.92);
   overflow: hidden;
 }
 .botao-fonte-menos,
@@ -181,6 +190,73 @@ a:hover {
 .botao-fonte-mais:hover {
   background: var(--fundo-cartao);
 }
+
+/* ---------- Submenu do Cardápio ---------- */
+.navbar-yeshua .nav-item.dropdown { position: relative; }
+.navbar-yeshua .nav-link.dropdown-toggle::after {
+  content: "\25be";
+  margin-left: 0.3rem;
+  font-size: 0.7em;
+  vertical-align: 0.05em;
+}
+.navbar-yeshua .submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 230px;
+  margin: 0.4rem 0 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--fundo-cartao);
+  border-radius: 10px;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.4);
+  display: none;
+  flex-direction: column;
+  gap: 0.1rem;
+  z-index: 20;
+}
+.navbar-yeshua .submenu-rotulo {
+  font-family: var(--fonte-maquina);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dourado-escuro);
+  padding: 0.35rem 0.65rem 0.2rem;
+}
+.navbar-yeshua .submenu .nav-link {
+  color: var(--preto);
+  font-size: 0.86rem;
+  margin: 0;
+}
+.navbar-yeshua .submenu .nav-link:hover,
+.navbar-yeshua .submenu .nav-link.active {
+  background: rgba(245, 128, 32, 0.14);
+  color: var(--dourado-escuro);
+}
+@media (min-width: 992px) {
+  .navbar-yeshua .nav-item.dropdown:hover .submenu,
+  .navbar-yeshua .nav-item.dropdown:focus-within .submenu {
+    display: flex;
+  }
+}
+@media (max-width: 991.98px) {
+  .navbar-yeshua .submenu {
+    position: static;
+    display: flex;
+    margin-top: 0.15rem;
+    padding-left: 0.75rem;
+    background: transparent;
+    box-shadow: none;
+  }
+  .navbar-yeshua .submenu-rotulo { display: none; }
+  .navbar-yeshua .submenu .nav-link { color: rgba(255, 250, 240, 0.72); }
+  .navbar-yeshua .submenu .nav-link:hover,
+  .navbar-yeshua .submenu .nav-link.active {
+    background: rgba(255, 157, 77, 0.14);
+    color: var(--dourado-claro);
+  }
+}
+
 /* ---------- Botões ---------- */
 .btn-dourado {
   position: relative;
