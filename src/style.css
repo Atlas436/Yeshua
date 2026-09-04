@@ -364,6 +364,9 @@ a:hover {
     linear-gradient(180deg, var(--fundo) 0%, var(--fundo-alt) 100%);
   overflow: hidden;
 }
+.hero-secundario {
+  min-height: 38vh;
+}
 
 /* ---------- Rabiscos decorativos (inspirados na embalagem) ---------- */
 .doodles {
