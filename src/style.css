@@ -204,6 +204,7 @@ a:hover {
   pointer-events: none;
 }
 .btn-dourado:hover {
+  background: linear-gradient(135deg, var(--dourado-claro), var(--dourado));
   color: var(--preto);
   transform: translateY(-2px);
   box-shadow: 0 0.75rem 2rem rgba(245, 128, 32, 0.45), 0 0 2.5rem rgba(255, 157, 77, 0.3);
@@ -236,6 +237,7 @@ a:hover {
   padding: 0.65rem 1.75rem;
 }
 .btn-terracota:hover {
+  background: linear-gradient(135deg, var(--terracota-clara), var(--terracota));
   color: var(--branco);
   filter: brightness(1.08);
 }
@@ -249,6 +251,7 @@ a:hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-preto:hover {
+  background: var(--preto);
   color: var(--dourado-claro);
   transform: translateY(-2px);
   box-shadow: 0 0.75rem 2rem rgba(40, 14, 4, 0.35);
@@ -261,7 +264,7 @@ a:hover {
   font-weight: 600;
   padding: 0.65rem 1.75rem;
 }
-.btn-whatsapp:hover { color: #fff; filter: brightness(1.05); }
+.btn-whatsapp:hover { background: #25d366; color: #fff; filter: brightness(1.05); }
 
 .hero-logo {
   width: 150px;
