@@ -182,6 +182,10 @@
         <div class="col-lg-6">
           <h3 class="fonte-titulo mb-4">Fale <span class="text-dourado">conosco</span></h3>
           <form id="form-contato" class="form-yeshua needs-validation" novalidate>
+            <div class="campo-armadilha" aria-hidden="true">
+              <label for="contato-empresa">Não preencha este campo</label>
+              <input type="text" id="contato-empresa" name="empresa" tabindex="-1" autocomplete="off">
+            </div>
             <div class="mb-3">
               <label for="contato-nome" class="form-label">Nome</label>
               <input type="text" class="form-control" id="contato-nome" name="nome" required>

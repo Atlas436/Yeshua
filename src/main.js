@@ -12,6 +12,28 @@ function salvarPedidoNoBanco(pedido) {
   });
 }
 
+// Trava simples anti-spam: bloqueia o campo escondido (bots costumam
+// preencher todo input que acham) e limita o intervalo entre envios do
+// mesmo navegador. Não substitui a proteção de verdade (RLS no Supabase),
+// só evita que alguém consiga lotar o painel de pedidos sem querer/à toa.
+const COOLDOWN_ENVIO_MS = 60 * 1000;
+const CHAVE_ULTIMO_ENVIO = 'yeshua_ultimo_envio';
+
+function caiuNaArmadilha(form) {
+  const campo = form.querySelector('[name="empresa"]');
+  return Boolean(campo && campo.value);
+}
+
+function tempoRestanteCooldown() {
+  const ultimo = Number(localStorage.getItem(CHAVE_ULTIMO_ENVIO) || 0);
+  const restante = COOLDOWN_ENVIO_MS - (Date.now() - ultimo);
+  return restante > 0 ? restante : 0;
+}
+
+function registrarEnvio() {
+  localStorage.setItem(CHAVE_ULTIMO_ENVIO, String(Date.now()));
+}
+
 export const WHATSAPP_NUMERO = '5511998686034';
 
 // Frete fixo por zona — como a marmita vai congelada, a entrega não precisa
@@ -527,6 +549,15 @@ document.addEventListener('DOMContentLoaded', () => {
           formCheckout.classList.add('was-validated');
           return;
         }
+        if (caiuNaArmadilha(formCheckout)) return;
+        if (tempoRestanteCooldown() > 0) {
+          const alertaCooldown = document.getElementById('alerta-cooldown-checkout');
+          if (alertaCooldown) {
+            alertaCooldown.classList.remove('d-none');
+            alertaCooldown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
 
         const dados = new FormData(formCheckout);
         const subtotal = subtotalCarrinho();
@@ -559,6 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
         window.open(url, '_blank', 'noopener');
 
+        registrarEnvio();
         salvarPedidoNoBanco({
           origem: 'checkout',
           nome: dados.get('nome'),
@@ -594,6 +626,15 @@ document.addEventListener('DOMContentLoaded', () => {
         formPersonalizar.classList.add('was-validated');
         return;
       }
+      if (caiuNaArmadilha(formPersonalizar)) return;
+      if (tempoRestanteCooldown() > 0) {
+        const alertaCooldown = document.getElementById('alerta-cooldown-personalizar');
+        if (alertaCooldown) {
+          alertaCooldown.classList.remove('d-none');
+          alertaCooldown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
 
       const dados = new FormData(formPersonalizar);
       const nome = dados.get('nome');
@@ -622,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
       window.open(url, '_blank', 'noopener');
 
+      registrarEnvio();
       salvarPedidoNoBanco({
         origem: 'personalizado',
         nome,
@@ -650,6 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formContato.classList.add('was-validated');
         return;
       }
+      if (caiuNaArmadilha(formContato)) return;
       const dados = new FormData(formContato);
       const mensagem = [
         '*Contato pelo site — Yeshua Marmitas Fit*',

@@ -160,8 +160,15 @@
           <div id="alerta-checkout" class="alert d-none" style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.4); color: #d7fbe6;" role="alert">
             Pedido montado! Confirme o envio na aba do WhatsApp que abrimos para você.
           </div>
+          <div id="alerta-cooldown-checkout" class="alert d-none" style="background: rgba(245,128,32,0.12); border: 1px solid rgba(245,128,32,0.4); color: var(--dourado-escuro);" role="alert">
+            Recebemos seu pedido há pouquíssimo tempo. Aguarde um instante e tente novamente.
+          </div>
 
           <form id="form-checkout" class="form-yeshua card-yeshua p-4 p-md-5 needs-validation" novalidate>
+            <div class="campo-armadilha" aria-hidden="true">
+              <label for="checkout-empresa">Não preencha este campo</label>
+              <input type="text" id="checkout-empresa" name="empresa" tabindex="-1" autocomplete="off">
+            </div>
             <h5 class="fonte-titulo mb-4">Entrega e pagamento</h5>
             <div class="row g-4">
 

@@ -574,6 +574,13 @@ section { padding: 5rem 0; }
   background: var(--dourado);
   color: var(--fundo-cartao);
 }
+.campo-armadilha {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 /* ---------- Footer ---------- */
 footer.footer-yeshua {
